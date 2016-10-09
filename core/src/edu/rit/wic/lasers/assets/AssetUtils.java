@@ -1,4 +1,4 @@
-package edu.rit.wic.lasers;
+package edu.rit.wic.lasers.assets;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
@@ -13,33 +13,25 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.async.ThreadUtils;
+import com.github.czyzby.kiwi.util.common.UtilitiesClass;
 import com.github.czyzby.kiwi.util.gdx.collection.GdxArrays;
 import com.github.czyzby.kiwi.util.gdx.collection.GdxSets;
 import com.google.common.base.Function;
 import com.google.common.base.Functions;
+import com.google.common.collect.Iterables;
 
 import edu.rit.wic.lasers.functional.FloatConsumer;
 import edu.rit.wic.lasers.math.ByteMath;
 
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
-import net.dermetfan.gdx.assets.AnnotationAssetManager.Asset;
 
 /**
  * Created by Matthew on 10/8/2016
  */
-public final class Assets {
+public final class AssetUtils extends UtilitiesClass {
 
-	@Asset(FreeTypeFontGenerator.class) private static final String FNT_ZEKTON = "fonts/zekton.ttf";
-	@Asset(FreeTypeFontGenerator.class) private static final String FNT_CONTINUUM_BOLD = "fonts/contb.ttf";
-
-	public static final String FNT_ZEKTON_18 = "fonts/zekton18.ttf";
-	public static final String FNT_CONTINUUM_BOLD_24 = "fonts/contb24.ttf";
-
-	// Must be loaded first.
-	public static final String TEX_SPLASH_SCREEN = "badlogic.jpg";
-
-	public static final Color COLOR_BACKGROUND = Assets.hex(0xFF7C1F, 1.0f);
-	public static final Color TINT_GREEN = Assets.hex(0x8CFF00, 0.75f);
+	public static final Color COLOR_BACKGROUND = AssetUtils.hex(0xFF7C1F, 1.0f);
+	public static final Color TINT_GREEN = AssetUtils.hex(0x8CFF00, 0.75f);
 
 	/**
 	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
@@ -85,6 +77,18 @@ public final class Assets {
 	 * immediately loaded in the parameter. These will be immediately available. This will also generate
 	 * all TrueType Fonts.
 	 *
+	 * @param splashAsset Initial splash screen texture to load
+	 * @return AssetManager with only the splash texture loaded
+	 */
+	public static AssetManager initialize(Asset splashAsset) {
+		return initialize(GdxArrays.newArray(splashAsset.getDescriptor()));
+	}
+
+	/**
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
+	 * immediately loaded in the parameter. These will be immediately available. This will also generate
+	 * all TrueType Fonts.
+	 *
 	 * @param splashTexture Initial splash screen texture to load
 	 * @return AssetManager with only the splash texture loaded
 	 */
@@ -110,14 +114,14 @@ public final class Assets {
 
 
 		FreetypeFontLoader.FreeTypeFontLoaderParameter params = getParams();
-		params.fontFileName = FNT_ZEKTON;
+		params.fontFileName = Assets.FNT_ZEKTON_GENERATOR.getPath();
 		params.fontParameters.size = 18;
-		manager.load(FNT_ZEKTON_18, BitmapFont.class, params);
+		manager.load(Assets.FNT_ZEKTON_18.getPath(), BitmapFont.class, params);
 
 		params = getParams();
-		params.fontFileName = FNT_CONTINUUM_BOLD;
+		params.fontFileName = Assets.FNT_CONTINUUM_GENERATOR.getPath();
 		params.fontParameters.size = 24;
-		manager.load(FNT_CONTINUUM_BOLD_24, BitmapFont.class, params);
+		manager.load(Assets.FNT_CONTINUUM_24.getPath(), BitmapFont.class, params);
 	}
 
 	/**
@@ -138,6 +142,20 @@ public final class Assets {
 			loadAction.consume(manager.getProgress());
 			ThreadUtils.yield();
 		}
+	}
+
+	/**
+	 * Attempts to load all Assets according to the provided AssetDescriptors. All descriptors are enqueued and then
+	 * asynchronously loads assets using {@link AssetManager#update()}, after each call the provided {@link FloatConsumer}
+	 * is called with the current progress of loading provided by {@link AssetManager#getProgress()} and then yields to
+	 * the CPU.
+	 *
+	 * @param manager     AssetManager to load assets with
+	 * @param assets List of {@link Asset assets} to load
+	 * @param loadAction  Action after every manager update.
+	 */
+	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets, FloatConsumer loadAction) {
+		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor), loadAction);
 	}
 
 	/**

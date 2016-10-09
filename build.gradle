@@ -38,6 +38,8 @@ allprojects {
         sqlCipherVersion = '3.5.4'
         rxJavaVersion = '1.1.6'
         guavaVersion = '19.0'
+        loggerVersion = '1.15'
+        tastyToastVersion = '0.1.0'
     }
 
     repositories {
@@ -83,6 +85,8 @@ project(":android") {
         compile "io.requery:requery-android:$requeryVersion" // for android
         apt "io.requery:requery-processor:$requeryVersion"   // use an APT plugin
         compile "net.zetetic:android-database-sqlcipher:$sqlCipherVersion"
+        compile "com.orhanobut:logger:$loggerVersion"
+        compile "com.sdsmdg.tastytoast:tastytoast:$tastyToastVersion"
     }
 }
 

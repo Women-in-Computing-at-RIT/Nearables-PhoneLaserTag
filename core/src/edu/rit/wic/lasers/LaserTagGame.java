@@ -1,5 +1,7 @@
 package edu.rit.wic.lasers;
 
+import edu.rit.wic.lasers.assets.AssetUtils;
+import edu.rit.wic.lasers.assets.Assets;
 import edu.rit.wic.lasers.screens.GameScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
@@ -14,7 +16,7 @@ public class LaserTagGame extends Game {
 	@Override
 	public void create () {
 		this.batch = new SpriteBatch();
-		this.assetManager = Assets.initialize(Assets.TEX_SPLASH_SCREEN);
+		this.assetManager = AssetUtils.initialize(Assets.SPLASH_IMAGE);
 
 		Texture.setAssetManager(this.assetManager);
 		setScreen(new GameScreen(this));
