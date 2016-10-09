@@ -7,6 +7,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
     }
 }
 
@@ -22,11 +24,27 @@ allprojects {
         box2DLightsVersion = '1.4'
         ashleyVersion = '1.7.0'
         aiVersion = '1.8.0'
+        jodaVersion = '2.9.3'
+        easyDeviceInfoVersion = '2.2.0'
+        senseyVersion = '1.4.1'
+        caffeineVersion =  '0.4.4'
+        kiwiLmlVersion = '1.7.1.9.3'
+        gdxUtilsVersion = '0.13.3'
+        lightweightStreamsVersion = '1.1.2'
+        gsonVersion = '2.7'
+        retrofitVersion = '2.1.0'
+        requeryVersion = '1.0.0'
+        okHttpVersion = '3.4.1'
+        sqlCipherVersion = '3.5.4'
+        rxJavaVersion = '1.1.6'
+        guavaVersion = '19.0'
     }
 
     repositories {
         mavenLocal()
         mavenCentral()
+        jcenter()
+        maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
@@ -34,6 +52,7 @@ allprojects {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'com.neenbedankt.android-apt'
 
     configurations { natives }
 
@@ -58,11 +77,18 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
+        compile "com.github.nisrulz:easydeviceinfo-base:$easyDeviceInfoVersion"
+        compile "com.github.nisrulz:sensey:$senseyVersion"
+        compile "com.github.percolate:caffeine:$caffeineVersion"
+        compile "io.requery:requery-android:$requeryVersion" // for android
+        apt "io.requery:requery-processor:$requeryVersion"   // use an APT plugin
+        compile "net.zetetic:android-database-sqlcipher:$sqlCipherVersion"
     }
 }
 
 project(":core") {
     apply plugin: "java"
+    apply plugin: "me.tatarka.retrolambda"
 
 
     dependencies {
@@ -70,9 +96,20 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
-        compile "net.dermetfan.libgdx-utils:libgdx-utils:0.13.3"
-        compile "com.github.czyzby:gdx-kiwi:1.7.1.9.3"
-        compile "com.github.czyzby:gdx-lml:1.7.1.9.3"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
+        compile "com.github.czyzby:gdx-kiwi:$kiwiLmlVersion"
+        compile "com.annimon:stream:$lightweightStreamsVersion"
+        compile "com.google.code.gson:gson:$gsonVersion"
+        compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+        compile "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
+        compile "io.requery:requery:$requeryVersion"
+        compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
+        compile "io.reactivex:rxjava:$rxJavaVersion"
+        compile "com.google.guava:guava:$guavaVersion"
+
+        // Already imported with kiwi
+        //compile "com.github.czyzby:gdx-lml:1.7.1.9.3"
     }
 }
 
