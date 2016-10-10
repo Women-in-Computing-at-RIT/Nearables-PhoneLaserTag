@@ -3,8 +3,7 @@ package edu.rit.wic.lasers.functional;
 /**
  * Created by Matthew on 10/8/2016.
  */
-@FunctionalInterface
-public interface FloatConsumer extends PrimitiveConsumer {
+@FunctionalInterface public interface FloatConsumer extends PrimitiveConsumer {
 
 	void accept(float input);
 
@@ -21,10 +20,16 @@ public interface FloatConsumer extends PrimitiveConsumer {
 	}
 
 	@Override default FloatConsumer andThen(PrimitiveConsumer after) {
-		return (input) -> {this.accept(input); after.accept(input);};
+		return (input) -> {
+			this.accept(input);
+			after.accept(input);
+		};
 	}
 
 	default FloatConsumer andThen(FloatConsumer after) {
-		return (input) -> {this.accept(input); after.accept(input);};
+		return (input) -> {
+			this.accept(input);
+			after.accept(input);
+		};
 	}
 }

@@ -1,13 +1,5 @@
 package edu.rit.wic.lasers.screens;
 
-import edu.rit.wic.lasers.assets.AssetUtils;
-import edu.rit.wic.lasers.LaserTagGame;
-import edu.rit.wic.lasers.assets.Assets;
-import edu.rit.wic.lasers.systems.AnimationSystem;
-import edu.rit.wic.lasers.systems.BackgroundSystem;
-import edu.rit.wic.lasers.systems.MovementSystem;
-import edu.rit.wic.lasers.systems.RenderingSystem;
-import edu.rit.wic.lasers.systems.StateSystem;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
@@ -16,7 +8,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +17,15 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.czyzby.kiwi.util.gdx.viewport.Viewports;
 import com.google.common.base.Function;
 import com.google.common.base.Supplier;
-import net.dermetfan.gdx.scenes.scene2d.Scene2DUtils;
+
+import edu.rit.wic.lasers.LaserTagGame;
+import edu.rit.wic.lasers.assets.AssetUtils;
+import edu.rit.wic.lasers.assets.Assets;
+import edu.rit.wic.lasers.systems.AnimationSystem;
+import edu.rit.wic.lasers.systems.BackgroundSystem;
+import edu.rit.wic.lasers.systems.MovementSystem;
+import edu.rit.wic.lasers.systems.RenderingSystem;
+import edu.rit.wic.lasers.systems.StateSystem;
 
 /**
  * Created by Matthew on 10/8/2016.

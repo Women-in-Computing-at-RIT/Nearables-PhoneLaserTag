@@ -96,11 +96,11 @@ public enum Assets implements Asset {
 	private static final ObjectMap<Assets.AssetType, ObjectSet<Asset>> typeToAssets = GdxMaps.newObjectMap();
 
 	static {
-		for(Assets asset : Assets.values()) {
+		for (Assets asset : Assets.values()) {
 			final Assets.AssetType type = asset.getAssetType();
 			final ObjectSet<Asset> assetSet = typeToAssets.get(type);
 
-			if(assetSet == null)
+			if (assetSet == null)
 				typeToAssets.put(type, GdxSets.newSet(asset));
 			else
 				assetSet.add(asset);
@@ -108,7 +108,7 @@ public enum Assets implements Asset {
 	}
 
 	public static ImmutableObjectSet<Asset> getAssetsOfType(Assets.AssetType type) {
-		if(typeToAssets.containsKey(type))
+		if (typeToAssets.containsKey(type))
 			return ImmutableObjectSet.of();
 		else
 			return GdxSets.toImmutable(typeToAssets.get(type));

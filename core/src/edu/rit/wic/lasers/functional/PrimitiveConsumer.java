@@ -5,11 +5,9 @@ package edu.rit.wic.lasers.functional;
  */
 public interface PrimitiveConsumer extends Consumer<Number> {
 
-	@Override
-	void accept(Number input);
+	@Override void accept(Number input);
 
-	@Override
-	void consume(Number input);
+	@Override void consume(Number input);
 
 	PrimitiveConsumer andThen(PrimitiveConsumer after);
 

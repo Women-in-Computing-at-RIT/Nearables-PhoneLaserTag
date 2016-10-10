@@ -22,17 +22,30 @@ public interface Asset {
 	/** @return type of the asset, used by AbstractAssetManager to filter assets that need to be loaded. */
 	AssetType getAssetType();
 
-	/** @param withManager will schedule loading of this asset. */
+	/**
+	 * @param withManager
+	 *     will schedule loading of this asset.
+	 */
 	void load(AssetManager withManager);
 
-	/** @param fromManager has to contain the loaded asset.
-	 * @return asset represented by this container. */
+	/**
+	 * @param fromManager
+	 *     has to contain the loaded asset.
+	 *
+	 * @return asset represented by this container.
+	 */
 	Object get(AssetManager fromManager);
 
-	/** @param withType class of the loaded asset.
-	 * @param fromManager has to contain the loaded asset.
+	/**
+	 * @param withType
+	 *     class of the loaded asset.
+	 * @param fromManager
+	 *     has to contain the loaded asset.
+	 * @param <Type>
+	 *     type of stored asset.
+	 *
 	 * @return asset represented by this container.
-	 * @param <Type> type of stored asset. */
+	 */
 	<Type> Type get(Class<Type> withType, AssetManager fromManager);
 
 	AssetDescriptor<?> getDescriptor();

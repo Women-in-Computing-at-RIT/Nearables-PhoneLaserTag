@@ -27,7 +27,7 @@ allprojects {
         jodaVersion = '2.9.3'
         easyDeviceInfoVersion = '2.2.0'
         senseyVersion = '1.4.1'
-        caffeineVersion =  '0.4.4'
+        caffeineVersion = '0.4.4'
         kiwiLmlVersion = '1.7.1.9.3'
         gdxUtilsVersion = '0.13.3'
         lightweightStreamsVersion = '1.1.2'
@@ -85,14 +85,10 @@ project(":android") {
         compile "io.requery:requery-android:$requeryVersion" // for android
         apt "io.requery:requery-processor:$requeryVersion"   // use an APT plugin
         compile "net.zetetic:android-database-sqlcipher:$sqlCipherVersion"
-        compile ("com.orhanobut:logger:$loggerVersion") {
+        compile "com.orhanobut:logger:$loggerVersion"
+        compile("com.sdsmdg.tastytoast:tastytoast:$tastyToastVersion") {
             exclude module: 'support-v4'
         }
-        compile ("com.sdsmdg.tastytoast:tastytoast:$tastyToastVersion") {
-            exclude module: 'support-v4'
-        }
-        //noinspection GradleDependency
-        //compile "com.android.support:support-v4:24.1.1"
     }
 }
 

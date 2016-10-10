@@ -20,11 +20,17 @@ public interface IntConsumer extends PrimitiveConsumer {
 	}
 
 	@Override default IntConsumer andThen(PrimitiveConsumer after) {
-		return input -> {this.accept(input); after.accept(input);};
+		return input -> {
+			this.accept(input);
+			after.accept(input);
+		};
 	}
 
 	default IntConsumer andThen(IntConsumer after) {
-		return input -> {this.accept(input); after.accept(input);};
+		return input -> {
+			this.accept(input);
+			after.accept(input);
+		};
 	}
 
 }

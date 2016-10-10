@@ -1,14 +1,15 @@
 package edu.rit.wic.lasers.systems;
 
-import edu.rit.wic.lasers.components.BackgroundComponent;
-import edu.rit.wic.lasers.components.ComponentMappers;
-import edu.rit.wic.lasers.components.TransformComponent;
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+
+import edu.rit.wic.lasers.components.BackgroundComponent;
+import edu.rit.wic.lasers.components.ComponentMappers;
+import edu.rit.wic.lasers.components.TransformComponent;
 
 /**
  * Created by Matthew on 10/9/2016.
