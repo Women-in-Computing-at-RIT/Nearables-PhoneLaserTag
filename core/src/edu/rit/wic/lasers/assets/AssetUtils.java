@@ -36,6 +36,20 @@ public final class AssetUtils extends UtilitiesClass {
 	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
 	 * immediately loaded in the parameter. These will be immediately available. This will also generate
 	 * all TrueType Fonts.
+	 *
+	 * @param splashTexture
+	 *     Initial splash screen texture to load
+	 *
+	 * @return AssetManager with only the splash texture loaded
+	 */
+	public static AssetManager initialize(AssetDescriptor<Texture> splashTexture) {
+		return initialize(GdxArrays.newArray(splashTexture));
+	}
+
+	/**
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
+	 * immediately loaded in the parameter. These will be immediately available. This will also generate
+	 * all TrueType Fonts.
 	 * <p>
 	 * No other assets will be loaded other than those specified.
 	 *
@@ -61,18 +75,22 @@ public final class AssetUtils extends UtilitiesClass {
 		return manager;
 	}
 
-	/**
-	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
-	 * immediately loaded in the parameter. These will be immediately available. This will also generate
-	 * all TrueType Fonts.
-	 *
-	 * @param splashTexture
-	 *     Initial splash screen texture to load
-	 *
-	 * @return AssetManager with only the splash texture loaded
-	 */
-	public static AssetManager initialize(AssetDescriptor<Texture> splashTexture) {
-		return initialize(GdxArrays.newArray(splashTexture));
+	private static void loadttf(AssetManager manager) {
+
+
+		FreetypeFontLoader.FreeTypeFontLoaderParameter params = getParams();
+		params.fontFileName = Assets.FNT_ZEKTON_GENERATOR.getPath();
+		params.fontParameters.size = 18;
+		manager.load(Assets.FNT_ZEKTON_18.getPath(), BitmapFont.class, params);
+
+		params = getParams();
+		params.fontFileName = Assets.FNT_CONTINUUM_GENERATOR.getPath();
+		params.fontParameters.size = 24;
+		manager.load(Assets.FNT_CONTINUUM_24.getPath(), BitmapFont.class, params);
+	}
+
+	private static FreetypeFontLoader.FreeTypeFontLoaderParameter getParams() {
+		return new FreetypeFontLoader.FreeTypeFontLoaderParameter();
 	}
 
 	/**
@@ -113,22 +131,21 @@ public final class AssetUtils extends UtilitiesClass {
 		return initialize(GdxArrays.newArray(0));
 	}
 
-	private static FreetypeFontLoader.FreeTypeFontLoaderParameter getParams() {
-		return new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-	}
-
-	private static void loadttf(AssetManager manager) {
-
-
-		FreetypeFontLoader.FreeTypeFontLoaderParameter params = getParams();
-		params.fontFileName = Assets.FNT_ZEKTON_GENERATOR.getPath();
-		params.fontParameters.size = 18;
-		manager.load(Assets.FNT_ZEKTON_18.getPath(), BitmapFont.class, params);
-
-		params = getParams();
-		params.fontFileName = Assets.FNT_CONTINUUM_GENERATOR.getPath();
-		params.fontParameters.size = 24;
-		manager.load(Assets.FNT_CONTINUUM_24.getPath(), BitmapFont.class, params);
+	/**
+	 * Attempts to load all Assets according to the provided AssetDescriptors. All descriptors are enqueued and then
+	 * asynchronously loads assets using {@link AssetManager#update()}, after each call the provided {@link FloatConsumer}
+	 * is called with the current progress of loading provided by {@link AssetManager#getProgress()} and then yields to
+	 * the CPU.
+	 *
+	 * @param manager
+	 *     AssetManager to load assets with
+	 * @param assets
+	 *     List of {@link Asset assets} to load
+	 * @param loadAction
+	 *     Action after every manager update.
+	 */
+	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets, FloatConsumer loadAction) {
+		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor), loadAction);
 	}
 
 	/**
@@ -152,23 +169,6 @@ public final class AssetUtils extends UtilitiesClass {
 			loadAction.consume(manager.getProgress());
 			ThreadUtils.yield();
 		}
-	}
-
-	/**
-	 * Attempts to load all Assets according to the provided AssetDescriptors. All descriptors are enqueued and then
-	 * asynchronously loads assets using {@link AssetManager#update()}, after each call the provided {@link FloatConsumer}
-	 * is called with the current progress of loading provided by {@link AssetManager#getProgress()} and then yields to
-	 * the CPU.
-	 *
-	 * @param manager
-	 *     AssetManager to load assets with
-	 * @param assets
-	 *     List of {@link Asset assets} to load
-	 * @param loadAction
-	 *     Action after every manager update.
-	 */
-	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets, FloatConsumer loadAction) {
-		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor), loadAction);
 	}
 
 	/**
@@ -196,6 +196,31 @@ public final class AssetUtils extends UtilitiesClass {
 				failures.add(s);
 
 		return failures;
+	}
+
+	/**
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
+	 *
+	 * @param t
+	 *     Base texture
+	 * @param n
+	 *     Number of frames to grab
+	 * @param r
+	 *     Row to start on
+	 * @param c
+	 *     Column to start on
+	 * @param width
+	 *     Width of each frame
+	 * @param height
+	 *     Height of each frame
+	 *
+	 * @return Animation strip with n frames
+	 *
+	 * @throws IllegalStateException
+	 *     if n frames could not be grabbed
+	 */
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height) {
+		return getAnimationStrip(t, n, r, c, width, height, Functions.identity());
 	}
 
 	/**
@@ -241,16 +266,13 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture. It is
+	 * assumed the frames start at the top left of the texture.
 	 *
 	 * @param t
 	 *     Base texture
 	 * @param n
 	 *     Number of frames to grab
-	 * @param r
-	 *     Row to start on
-	 * @param c
-	 *     Column to start on
 	 * @param width
 	 *     Width of each frame
 	 * @param height
@@ -261,8 +283,8 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @throws IllegalStateException
 	 *     if n frames could not be grabbed
 	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height) {
-		return getAnimationStrip(t, n, r, c, width, height, Functions.identity());
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height) {
+		return getAnimationStrip(t, n, width, height, Functions.identity());
 	}
 
 	/**
@@ -290,28 +312,6 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture. It is
-	 * assumed the frames start at the top left of the texture.
-	 *
-	 * @param t
-	 *     Base texture
-	 * @param n
-	 *     Number of frames to grab
-	 * @param width
-	 *     Width of each frame
-	 * @param height
-	 *     Height of each frame
-	 *
-	 * @return Animation strip with n frames
-	 *
-	 * @throws IllegalStateException
-	 *     if n frames could not be grabbed
-	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height) {
-		return getAnimationStrip(t, n, width, height, Functions.identity());
-	}
-
-	/**
 	 * Given a hexcode as a string, returns the appropriate LibGDX Color.
 	 *
 	 * @param hex
@@ -323,6 +323,27 @@ public final class AssetUtils extends UtilitiesClass {
 	 */
 	public static Color hex(String hex, float alpha) {
 		return hex(Integer.parseInt(hex, 16), MathUtils.clamp(alpha, 0.0f, 1.0f));
+	}
+
+	/**
+	 * Takes a bit pattern representing an RGB value where the rightmost 3 bytes each represent one component. There
+	 * is some loss of precision when the RGB components are converted to a value between 0 and 1. The alpha value
+	 * is left unchanged.
+	 *
+	 * @param hex
+	 *     24-bit bit pattern for RGB color
+	 * @param alpha
+	 *     Alpha value between 0 and 1
+	 *
+	 * @return LibGDX Color
+	 */
+	public static Color hex(int hex, float alpha) {
+
+		int red = ByteMath.getByte(hex, 2);
+		int green = ByteMath.getByte(hex, 1);
+		int blue = ByteMath.getByte(hex, 0);
+
+		return new Color(red / 255.f, green / 255.f, blue / 255.f, alpha);
 	}
 
 	/**
@@ -369,26 +390,5 @@ public final class AssetUtils extends UtilitiesClass {
 		}
 
 		return new Color(red / 255.f, green / 255.f, blue / 255.f, alpha / 255.f);
-	}
-
-	/**
-	 * Takes a bit pattern representing an RGB value where the rightmost 3 bytes each represent one component. There
-	 * is some loss of precision when the RGB components are converted to a value between 0 and 1. The alpha value
-	 * is left unchanged.
-	 *
-	 * @param hex
-	 *     24-bit bit pattern for RGB color
-	 * @param alpha
-	 *     Alpha value between 0 and 1
-	 *
-	 * @return LibGDX Color
-	 */
-	public static Color hex(int hex, float alpha) {
-
-		int red = ByteMath.getByte(hex, 2);
-		int green = ByteMath.getByte(hex, 1);
-		int blue = ByteMath.getByte(hex, 0);
-
-		return new Color(red / 255.f, green / 255.f, blue / 255.f, alpha);
 	}
 }

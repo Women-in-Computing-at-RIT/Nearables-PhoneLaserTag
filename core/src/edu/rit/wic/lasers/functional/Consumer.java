@@ -5,11 +5,11 @@ package edu.rit.wic.lasers.functional;
  */
 @FunctionalInterface public interface Consumer<T> extends com.annimon.stream.function.Consumer<T> {
 
-	@Override void accept(T input);
-
 	default void consume(T input) {
 		this.accept(input);
 	}
+
+	@Override void accept(T input);
 
 	default Consumer<T> andThen(Consumer<T> after) {
 		return in -> {

@@ -5,8 +5,8 @@ package edu.rit.wic.lasers.components;
  */
 public class StateComponent implements PoolableComponent {
 
-	private int state = 0;
 	public float time = 0.0f;
+	private int state = 0;
 
 	public int get() {
 		return state;

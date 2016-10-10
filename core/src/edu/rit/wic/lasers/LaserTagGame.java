@@ -14,10 +14,9 @@ import edu.rit.wic.lasers.screens.GameScreen;
 import edu.rit.wic.lasers.screens.SplashScreen;
 
 public class LaserTagGame extends Game {
+	public final Beam logger = Beam.INSTANCE;
 	private SpriteBatch batch;
 	private AssetManager assetManager;
-
-	public final Beam logger = Beam.INSTANCE;
 
 	@Override public void create() {
 		this.batch = new SpriteBatch();

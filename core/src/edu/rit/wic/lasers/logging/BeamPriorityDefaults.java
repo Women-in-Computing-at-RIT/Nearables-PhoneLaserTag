@@ -6,10 +6,15 @@ package edu.rit.wic.lasers.logging;
 public interface BeamPriorityDefaults {
 
 	BeamPriority forInfo();
+
 	BeamPriority forDebug();
+
 	BeamPriority forWarn();
+
 	BeamPriority forVerbose();
+
 	BeamPriority forError();
+
 	BeamPriority forWtf();
 
 }

@@ -5,18 +5,18 @@ package edu.rit.wic.lasers.functional;
  */
 @FunctionalInterface public interface FloatConsumer extends PrimitiveConsumer {
 
-	void accept(float input);
-
-	default void consume(float input) {
-		this.accept(input);
-	}
-
 	@Override default void accept(Number input) {
 		this.accept(input.floatValue());
 	}
 
+	void accept(float input);
+
 	@Override default void consume(Number input) {
 		this.consume(input.floatValue());
+	}
+
+	default void consume(float input) {
+		this.accept(input);
 	}
 
 	@Override default FloatConsumer andThen(PrimitiveConsumer after) {

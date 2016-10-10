@@ -1,15 +1,14 @@
 package edu.rit.wic.lasers.screens;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.github.czyzby.kiwi.util.gdx.GdxUtilities;
-import static com.google.common.base.Preconditions.checkArgument;
 
 import edu.rit.wic.lasers.LaserTagGame;
 import edu.rit.wic.lasers.assets.Asset;
@@ -75,7 +74,7 @@ public class SplashScreen extends ScreenAdapter {
 
 		if (elapsedTime >= minDisplayTime && this.game.getAssets().update()) {
 			this.transition.call();
-		} else if(!this.game.getAssets().update()){
+		} else if (!this.game.getAssets().update()) {
 			float progress = this.game.getAssets().getProgress();
 			this.game.logger.i("SplashScreen Loading: %d%% of the way done.", (int) (progress * 100));
 		}

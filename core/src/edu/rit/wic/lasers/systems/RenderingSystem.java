@@ -32,10 +32,13 @@ public class RenderingSystem extends IteratingSystem {
 	private final SpriteBatch spriteBatch;
 	private final MinMaxPriorityQueue<Entity> renderQueue;
 	private final Viewport renderView;
-	private Comparator<Entity> comparator;
-
 	private final ComponentMapper<TextureComponent> texMapper = ComponentMappers.TEX_MAPPER;
 	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
+	private Comparator<Entity> comparator;
+
+	public RenderingSystem(final SpriteBatch batch) {
+		this(batch, Viewports.getDensityAwareViewport());
+	}
 
 	public RenderingSystem(final SpriteBatch batch, final Viewport viewport) {
 		super(Family.all(TransformComponent.class, TextureComponent.class).get());
@@ -53,10 +56,6 @@ public class RenderingSystem extends IteratingSystem {
 		};
 
 		this.renderQueue = MinMaxPriorityQueue.orderedBy(this.comparator).expectedSize(20).create();
-	}
-
-	public RenderingSystem(final SpriteBatch batch) {
-		this(batch, Viewports.getDensityAwareViewport());
 	}
 
 	@Override public void update(final float deltaTime) {

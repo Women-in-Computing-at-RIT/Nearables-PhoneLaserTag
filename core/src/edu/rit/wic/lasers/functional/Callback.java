@@ -5,10 +5,10 @@ package edu.rit.wic.lasers.functional;
  */
 @FunctionalInterface public interface Callback extends Runnable {
 
-	void call();
-
 	default void run() {
 		this.call();
 	}
+
+	void call();
 
 }

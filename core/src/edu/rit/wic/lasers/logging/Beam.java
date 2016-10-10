@@ -2,7 +2,6 @@ package edu.rit.wic.lasers.logging;
 
 import com.badlogic.gdx.utils.Array;
 import com.github.czyzby.kiwi.util.gdx.collection.GdxArrays;
-import com.github.czyzby.kiwi.util.gdx.collection.immutable.ImmutableArray;
 import com.google.common.base.Preconditions;
 
 import java.util.concurrent.locks.Lock;
@@ -19,6 +18,165 @@ public enum Beam {
 	private final LightRay[] EMPTY_LIGHT_RAYS_ARRAY = new LightRay[0];
 	private final Array<LightRay> LIGHT_RAYS = GdxArrays.newArray(LightRay.class);
 	private volatile LightRay[] lightRaysArray = EMPTY_LIGHT_RAYS_ARRAY;
+	private final AbstractLightRay COHERENT_BEAM = new AbstractLightRay(null) {
+		@Override public void setTag(final String tag) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].setTag(tag);
+			}
+		}
+
+		@Override public void v(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].v(message, args);
+			}
+		}
+
+		@Override public void v(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].v(t, message, args);
+			}
+		}
+
+		@Override public void v(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].v(t);
+			}
+		}
+
+		@Override public void d(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].d(message, args);
+			}
+		}
+
+		@Override public void d(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].d(t, message, args);
+			}
+		}
+
+		@Override public void d(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].d(t);
+			}
+		}
+
+		@Override public void i(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].i(message, args);
+			}
+		}
+
+		@Override public void i(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].i(t, message, args);
+			}
+		}
+
+		@Override public void i(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].i(t);
+			}
+		}
+
+		@Override public void w(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].w(message, args);
+			}
+		}
+
+		@Override public void w(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].w(t, message, args);
+			}
+		}
+
+		@Override public void w(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].w(t);
+			}
+		}
+
+		@Override public void e(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].e(message, args);
+			}
+		}
+
+		@Override public void e(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].e(t, message, args);
+			}
+		}
+
+		@Override public void e(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].e(t);
+			}
+		}
+
+		@Override public void wtf(final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].wtf(message, args);
+			}
+		}
+
+		@Override public void wtf(final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].wtf(t, message, args);
+			}
+		}
+
+		@Override public void wtf(final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].wtf(t);
+			}
+		}
+
+		@Override public void log(final BeamPriority priority, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].log(priority, message, args);
+			}
+		}
+
+		@Override public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].log(priority, t, message, args);
+			}
+		}
+
+		@Override public void log(final BeamPriority priority, final Throwable t) {
+			//noinspection ForLoopReplaceableByForEach
+			for (int i = 0; i < lightRaysArray.length; i++) {
+				lightRaysArray[i].log(priority, t);
+			}
+		}
+
+		@Override protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
+			throw new AssertionError("Missing override");
+		}
+	};
 
 	/** Log a verbose message with optional format args. */
 	public void v(String message, Object... args) {
@@ -159,7 +317,7 @@ public enum Beam {
 	public void addRays(LightRay... rays) {
 		rays = Preconditions.checkNotNull(rays);
 
-		for(LightRay ray : rays) {
+		for (LightRay ray : rays) {
 			Preconditions.checkNotNull(ray, "No null LightRays allowed");
 			Preconditions.checkArgument(ray != COHERENT_BEAM, "Beams inside beams are not allowed!");
 		}
@@ -212,165 +370,5 @@ public enum Beam {
 			lightRayLock.unlock();
 		}
 	}
-
-	private final AbstractLightRay COHERENT_BEAM = new AbstractLightRay(null) {
-		@Override public void v(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].v(message, args);
-			}
-		}
-
-		@Override public void v(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].v(t, message, args);
-			}
-		}
-
-		@Override public void v(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].v(t);
-			}
-		}
-
-		@Override public void d(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].d(message, args);
-			}
-		}
-
-		@Override public void d(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].d(t, message, args);
-			}
-		}
-
-		@Override public void d(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].d(t);
-			}
-		}
-
-		@Override public void i(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].i(message, args);
-			}
-		}
-
-		@Override public void i(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].i(t, message, args);
-			}
-		}
-
-		@Override public void i(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].i(t);
-			}
-		}
-
-		@Override public void w(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].w(message, args);
-			}
-		}
-
-		@Override public void w(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].w(t);
-			}
-		}
-
-		@Override public void w(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].w(t, message, args);
-			}
-		}
-
-		@Override public void e(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].e(t, message, args);
-			}
-		}
-
-		@Override public void e(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].e(message, args);
-			}
-		}
-
-		@Override public void e(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].e(t);
-			}
-		}
-
-		@Override public void wtf(final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].wtf(t, message, args);
-			}
-		}
-
-		@Override public void wtf(final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].wtf(message, args);
-			}
-		}
-
-		@Override public void wtf(final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].wtf(t);
-			}
-		}
-
-		@Override public void log(final BeamPriority priority, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].log(priority, message, args);
-			}
-		}
-
-		@Override public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].log(priority, t, message, args);
-			}
-		}
-
-		@Override public void log(final BeamPriority priority, final Throwable t) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].log(priority, t);
-			}
-		}
-
-		@Override public void setTag(final String tag) {
-			//noinspection ForLoopReplaceableByForEach
-			for(int i = 0; i < lightRaysArray.length; i++) {
-				lightRaysArray[i].setTag(tag);
-			}
-		}
-
-		@Override protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
-			throw new AssertionError("Missing override");
-		}
-	};
 
 }

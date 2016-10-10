@@ -1,7 +1,6 @@
 package edu.rit.wic.lasers;
 
 import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.orhanobut.logger.Logger;
@@ -10,8 +9,7 @@ import edu.rit.wic.lasers.logging.AndroidDebugLightRay;
 import edu.rit.wic.lasers.logging.Beam;
 
 public class AndroidLauncher extends AndroidApplication {
-	@Override
-	protected void onCreate (Bundle savedInstanceState) {
+	@Override protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 

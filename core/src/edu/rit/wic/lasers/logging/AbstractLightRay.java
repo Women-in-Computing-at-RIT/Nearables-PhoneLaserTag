@@ -5,9 +5,8 @@ package edu.rit.wic.lasers.logging;
  */
 public abstract class AbstractLightRay implements LightRay {
 
-	final ThreadLocal<String> logTag = new ThreadLocal<>();
-
 	protected final BeamPriorityDefaults defaults;
+	final ThreadLocal<String> logTag = new ThreadLocal<>();
 
 	public AbstractLightRay(BeamPriorityDefaults defaults) {
 		this.defaults = defaults;
@@ -15,7 +14,7 @@ public abstract class AbstractLightRay implements LightRay {
 
 	protected String getTag() {
 		String tag = logTag.get();
-		if(tag != null)
+		if (tag != null)
 			logTag.remove();
 		return tag;
 	}
@@ -119,19 +118,18 @@ public abstract class AbstractLightRay implements LightRay {
 	private void prepareLog(BeamPriority priority, Throwable t, String message, Object... args) {
 		String tag = getTag();
 
-		if(!isLoggable(tag, priority))
+		if (!isLoggable(tag, priority))
 			return;
 
-		if(isEmptyMessage(message))
-			if(t == null)
+		if (isEmptyMessage(message))
+			if (t == null)
 				return;
 			else
 				message = LightRayUtils.getStackTrace(t);
-		else
-			if(args.length > 0)
-				message = String.format(message, args);
-			else if(t != null)
-				message += "\n" + LightRayUtils.getStackTrace(t);
+		else if (args.length > 0)
+			message = String.format(message, args);
+		else if (t != null)
+			message += "\n" + LightRayUtils.getStackTrace(t);
 
 		this.log(priority, tag, message, t);
 	}

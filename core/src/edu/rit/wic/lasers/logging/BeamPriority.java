@@ -8,6 +8,7 @@ import java.util.Comparator;
 public interface BeamPriority extends Comparator<BeamPriority> {
 
 	String toMessageTag();
+
 	int toInt();
 
 }

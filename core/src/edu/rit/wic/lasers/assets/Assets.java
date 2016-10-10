@@ -31,9 +31,27 @@ public enum Assets implements Asset {
 
 	I18N_APP_BUNDLE("bundles/app.properties", I18NBundle.class, AssetType.LANGUAGE);
 
+	private static final ObjectMap<AssetType, ObjectSet<Asset>> typeToAssets = GdxMaps.newObjectMap();
+
+	static {
+		for (Assets asset : Assets.values()) {
+			final AssetType type = asset.getAssetType();
+			final ObjectSet<Asset> assetSet = typeToAssets.get(type);
+
+			if (assetSet == null)
+				typeToAssets.put(type, GdxSets.newSet(asset));
+			else
+				assetSet.add(asset);
+		}
+	}
+
 	private final FileHandle handle;
 	private final AssetDescriptor<?> descriptor;
 	private final AssetType assetType;
+
+	<T> Assets(String path, Class<T> assetClass, AssetLoaderParameters<T> parameters, AssetType type, FileHandleResolver resolver) {
+		this(new AssetDescriptor<>(resolver.resolve(path), assetClass, parameters), type, resolver);
+	}
 
 	<T> Assets(AssetDescriptor<T> descriptor, AssetType type, FileHandleResolver resolver) {
 		this.handle = resolver.resolve(descriptor.fileName);
@@ -41,35 +59,32 @@ public enum Assets implements Asset {
 		this.assetType = type;
 	}
 
-	<T> Assets(String path, Class<T> assetClass, AssetLoaderParameters<T> parameters, AssetType type, FileHandleResolver resolver) {
-		this(new AssetDescriptor<>(resolver.resolve(path), assetClass, parameters), type, resolver);
-	}
-
 	<T> Assets(String path, Class<T> assetClass, AssetType type, FileHandleResolver resolver) {
 		this(new AssetDescriptor<>(resolver.resolve(path), assetClass), type, resolver);
-	}
-
-	<T> Assets(AssetDescriptor<T> descriptor, AssetType type) {
-		this(descriptor, type, new InternalFileHandleResolver());
 	}
 
 	<T> Assets(String path, Class<T> assetClass, AssetLoaderParameters<T> parameters, AssetType type) {
 		this(new AssetDescriptor<>(path, assetClass, parameters), type);
 	}
 
-	<T> Assets(String path, Class<T> assetClass, AssetType type) {
-		this(new AssetDescriptor<>(path, assetClass), type);
-	}
-
-	@Override public String getPath() {
+	<T> Assets(AssetDescriptor<T> descriptor, AssetType type) {
+		this(descriptor, type, new InternalFileHandleResolver());
+	}	@Override public String getPath() {
 		return this.handle.path();
 	}
 
-	@Override public Class<?> getAssetClass() {
+	<T> Assets(String path, Class<T> assetClass, AssetType type) {
+		this(new AssetDescriptor<>(path, assetClass), type);
+	}	@Override public Class<?> getAssetClass() {
 		return this.descriptor.type;
 	}
 
-	@Override public FileHandle getFileHandle() {
+	public static ImmutableObjectSet<Asset> getAssetsOfType(AssetType type) {
+		if (typeToAssets.containsKey(type))
+			return ImmutableObjectSet.of();
+		else
+			return GdxSets.toImmutable(typeToAssets.get(type));
+	}	@Override public FileHandle getFileHandle() {
 		return this.handle;
 	}
 
@@ -93,26 +108,11 @@ public enum Assets implements Asset {
 		return this.descriptor;
 	}
 
-	private static final ObjectMap<AssetType, ObjectSet<Asset>> typeToAssets = GdxMaps.newObjectMap();
 
-	static {
-		for (Assets asset : Assets.values()) {
-			final AssetType type = asset.getAssetType();
-			final ObjectSet<Asset> assetSet = typeToAssets.get(type);
 
-			if (assetSet == null)
-				typeToAssets.put(type, GdxSets.newSet(asset));
-			else
-				assetSet.add(asset);
-		}
-	}
 
-	public static ImmutableObjectSet<Asset> getAssetsOfType(AssetType type) {
-		if (typeToAssets.containsKey(type))
-			return ImmutableObjectSet.of();
-		else
-			return GdxSets.toImmutable(typeToAssets.get(type));
-	}
+
+
 
 }
 

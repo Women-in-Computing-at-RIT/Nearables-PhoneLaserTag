@@ -5,7 +5,7 @@ import com.orhanobut.logger.Logger;
 /**
  * Created by Matthew on 10/10/2016.
  */
-public enum AndroidBeamPriority implements BeamPriority{
+public enum AndroidBeamPriority implements BeamPriority {
 	VERBOSE(Logger.VERBOSE),
 	DEBUG(Logger.DEBUG),
 	INFO(Logger.INFO),
@@ -31,7 +31,7 @@ public enum AndroidBeamPriority implements BeamPriority{
 		int lhsi = lhs.toInt();
 		int rhsi = rhs.toInt();
 
-		return lhsi < rhsi ? -1: (lhsi == rhsi ? 0 : 1);
+		return lhsi < rhsi ? -1 : (lhsi == rhsi ? 0 : 1);
 	}
 
 	public static class Defaults implements BeamPriorityDefaults {

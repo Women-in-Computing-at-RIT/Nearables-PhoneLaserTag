@@ -30,36 +30,36 @@ public final class LightRayUtils extends UtilitiesClass {
 		return sw.toString();
 	}
 
-	public static StackTraceElement extractElement(StackTraceElement[] stackTrace, int n) {
-		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace elements, check proguard.");
-
-		return stackTrace[n];
-	}
-
-	public static StackTraceElement extractCaller(StackTraceElement[] stackTrace) {
-		return extractElement(stackTrace, CALL_STACK_INDEX);
-	}
-
-	public static String getClassNameNoInner(String className) {
-		Matcher m = PATTERN_ANONYMOUS_CLASS.matcher(className);
-		if(m.find())
-			className = m.replaceAll("");
-
-		return className.substring(className.lastIndexOf('.') + 1);
-	}
-
 	public static String getClassNameNoInner(StackTraceElement element) {
 		Preconditions.checkNotNull(element);
 
 		return getClassNameNoInner(element.getClassName());
 	}
 
+	public static String getClassNameNoInner(String className) {
+		Matcher m = PATTERN_ANONYMOUS_CLASS.matcher(className);
+		if (m.find())
+			className = m.replaceAll("");
+
+		return className.substring(className.lastIndexOf('.') + 1);
+	}
+
 	public static String getCallerNameNoInner(StackTraceElement[] stackTrace) {
 		return getClassNameNoInner(extractCaller(stackTrace).getClassName());
 	}
 
+	public static StackTraceElement extractCaller(StackTraceElement[] stackTrace) {
+		return extractElement(stackTrace, CALL_STACK_INDEX);
+	}
+
+	public static StackTraceElement extractElement(StackTraceElement[] stackTrace, int n) {
+		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace elements, check proguard.");
+
+		return stackTrace[n];
+	}
+
 	public static void processLongMessage(String message, Consumer<String> consumer) {
-		for(int i = 0, length = message.length(); i < length; i++) {
+		for (int i = 0, length = message.length(); i < length; i++) {
 			int newline = message.indexOf('\n', i);
 			newline = newline != -1 ? newline : length;
 			do {
@@ -67,7 +67,7 @@ public final class LightRayUtils extends UtilitiesClass {
 				String part = message.substring(i, end);
 				consumer.accept(part);
 				i = end;
-			} while(i < newline);
+			} while (i < newline);
 		}
 	}
 
