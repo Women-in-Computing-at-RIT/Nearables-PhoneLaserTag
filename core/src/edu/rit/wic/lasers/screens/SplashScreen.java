@@ -33,10 +33,14 @@ public class SplashScreen extends ScreenAdapter {
 	private float pausedDelta = 0;
 
 	public SplashScreen(final LaserTagGame game, final Asset image, Iterable<Asset> forLoading, Callback onComplete, float minSeconds) {
-		checkArgument(image.getAssetType() == AssetType.GRAPHICS && Texture.class.isAssignableFrom(image.getAssetClass()), "SplashScreen expects Texture Asset!");
+		checkArgument(isGraphicalAsset(image), "SplashScreen expects Texture Asset!");
 
 		this.game = game;
 		this.minDisplayTime = minSeconds;
+
+		this.game.logger.tag("SPLASH");
+		this.game.logger.i("Displaying splash screen for at least ~%.2f seconds", minSeconds);
+		this.game.logger.i("SplashScreen Asset: '%s' of type '%s'", image.getPath(), image.getAssetType());
 
 		TransformComponent splashTransform = new TransformComponent();
 		TextureComponent splashTextureComp = new TextureComponent();
@@ -49,13 +53,19 @@ public class SplashScreen extends ScreenAdapter {
 		splashEntity.add(splashTextureComp);
 		splashEntity.add(splashTransform);
 
-		engine.addSystem( new RenderingSystem(this.game.getBatch(), new StretchViewport(width, height)));
+		engine.addSystem(new RenderingSystem(this.game.getBatch(), new StretchViewport(width, height)));
 		engine.addEntity(splashEntity);
 
-		for (Asset asset : forLoading)
+		for (Asset asset : forLoading) {
+			this.game.logger.i("Adding '%s' to load queue...", asset.getPath());
 			asset.load(this.game.getAssets());
+		}
 
 		this.transition = onComplete;
+	}
+
+	private boolean isGraphicalAsset(Asset asset) {
+		return asset.getAssetType() == AssetType.GRAPHICS && Texture.class.isAssignableFrom(asset.getAssetClass());
 	}
 
 	@Override public void render(final float delta) {
@@ -65,23 +75,25 @@ public class SplashScreen extends ScreenAdapter {
 
 		if (elapsedTime >= minDisplayTime && this.game.getAssets().update()) {
 			this.transition.call();
+		} else if(!this.game.getAssets().update()){
+			float progress = this.game.getAssets().getProgress();
+			this.game.logger.i("SplashScreen Loading: %d%% of the way done.", (int) (progress * 100));
 		}
 
-		this.game.getAssets().update();
-		float progress = this.game.getAssets().getProgress();
-		Gdx.app.log("TEST", String.format("%d%% of the way done.", (int) (progress * 100)));
-
 		elapsedTime += delta - pausedDelta;
+		this.game.logger.v("SplashScreen Loading: minTime: Min Time: %.3f, Elapsed: %.3f, pauseTime: %.3f", minDisplayTime, elapsedTime, pausedDelta);
 		pausedDelta = 0;
 	}
 
 	@Override public void pause() {
+		this.game.logger.i("SplashScreen Paused");
 		pausedDelta = System.nanoTime();
 		super.pause();
 	}
 
 	@Override public void resume() {
 		pausedDelta = (System.nanoTime() - pausedDelta) / 1000000000.0f;
+		this.game.logger.i("SplashScreen Resumed: Calculated Pause time is %.3f", pausedDelta);
 		super.resume();
 	}
 }

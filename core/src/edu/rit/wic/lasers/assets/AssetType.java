@@ -8,5 +8,5 @@ public enum AssetType implements com.github.czyzby.kiwi.util.gdx.asset.AssetType
     GRAPHICS,
     FONT,
     FONT_GENERATOR,
-    SOUND
+    SOUND;
 }

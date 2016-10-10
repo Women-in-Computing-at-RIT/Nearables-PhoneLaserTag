@@ -19,6 +19,7 @@ import edu.rit.wic.lasers.Ref.Rendering;
 import edu.rit.wic.lasers.components.ComponentMappers;
 import edu.rit.wic.lasers.components.TextureComponent;
 import edu.rit.wic.lasers.components.TransformComponent;
+import edu.rit.wic.lasers.logging.Beam;
 
 import java.util.Comparator;
 
@@ -42,11 +43,13 @@ public class RenderingSystem extends IteratingSystem {
 		this.spriteBatch = batch;
 		this.renderView = viewport;
 
+		Beam.INSTANCE.v("Rendering using '%s' viewport", this.renderView.getClass().getName());
+
 		this.comparator = (entA, entB) -> {
 			TransformComponent transformA = transformMapper.get(entA);
 			TransformComponent transformB = transformMapper.get(entB);
 
-			return (int) Math.signum(transformB.position.z - transformA.position.z);
+			return Float.compare(transformB.position.z, transformA.position.z);
 		};
 
 		this.renderQueue = MinMaxPriorityQueue.orderedBy(this.comparator).expectedSize(20).create();
@@ -70,8 +73,10 @@ public class RenderingSystem extends IteratingSystem {
 
 			TextureComponent curTex = texMapper.get(current);
 
-			if (curTex.texture == null)
+			if (curTex.texture == null) {
+				Beam.INSTANCE.v("Rendering Entity: Attempt to render entity with no texture in texture component!");
 				continue;
+			}
 
 			TransformComponent curTransform = transformMapper.get(current);
 
@@ -84,6 +89,8 @@ public class RenderingSystem extends IteratingSystem {
 			float originX = 0;
 			float originY = 0;
 
+			Beam.INSTANCE.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH[(%.3f, %.3f)] Scl[(%.3f, %.3f)] Rot[%.3f]", pos.x, pos.y, originX, originY, width, height, scaling.x, scaling.y, curTransform.rotation);
+			Beam.INSTANCE.v("Rendering Entity: Using Meters Per Pixel value of %f", Rendering.METERS_PER_PIXEL);
 			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY, width, height, scaling.x * Rendering.METERS_PER_PIXEL, scaling.y * Rendering.METERS_PER_PIXEL, MathUtils.radiansToDegrees * curTransform.rotation);
 
 		}

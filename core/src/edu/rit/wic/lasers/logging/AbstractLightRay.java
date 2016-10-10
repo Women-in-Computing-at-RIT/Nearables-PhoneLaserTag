@@ -20,6 +20,10 @@ public abstract class AbstractLightRay implements LightRay {
 		return tag;
 	}
 
+	@Override public void setTag(final String tag) {
+		this.logTag.set(tag);
+	}
+
 	@Override public void v(final String message, final Object... args) {
 		prepareLog(defaults.forVerbose(), null, message, args);
 	}
