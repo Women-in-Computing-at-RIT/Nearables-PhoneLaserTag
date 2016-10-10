@@ -80,8 +80,8 @@ public class RenderingSystem extends IteratingSystem {
 
 			float width = curTex.texture.getRegionWidth();
 			float height = curTex.texture.getRegionHeight();
-			float originX = width/2;
-			float originY = height/2;
+			float originX = 0;
+			float originY = 0;
 
 			spriteBatch.draw(tex,
 							 pos.x - originX, pos.y - originY,
