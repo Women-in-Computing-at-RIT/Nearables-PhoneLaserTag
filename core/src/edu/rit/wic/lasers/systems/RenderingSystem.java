@@ -58,7 +58,8 @@ public class RenderingSystem extends IteratingSystem {
 		this.renderQueue = MinMaxPriorityQueue.orderedBy(this.comparator).expectedSize(20).create();
 	}
 
-	@Override public void update(final float deltaTime) {
+	@Override
+	public void update(final float deltaTime) {
 		super.update(deltaTime);
 
 		final Camera renderCam = this.renderView.getCamera();
@@ -98,7 +99,8 @@ public class RenderingSystem extends IteratingSystem {
 		renderQueue.clear();
 	}
 
-	@Override protected void processEntity(final Entity entity, final float deltaTime) {
+	@Override
+	protected void processEntity(final Entity entity, final float deltaTime) {
 		this.renderQueue.add(entity);
 	}
 

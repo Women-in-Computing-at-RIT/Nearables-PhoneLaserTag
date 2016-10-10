@@ -11,7 +11,8 @@ public class AnimationComponent implements PoolableComponent {
 
 	public final OrderedMap<Integer, Animation> animationMap = GdxMaps.newOrderedMap();
 
-	@Override public void reset() {
+	@Override
+	public void reset() {
 		animationMap.clear();
 	}
 }

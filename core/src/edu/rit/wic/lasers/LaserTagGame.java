@@ -18,7 +18,8 @@ public class LaserTagGame extends Game {
 	private SpriteBatch batch;
 	private AssetManager assetManager;
 
-	@Override public void create() {
+	@Override
+	public void create() {
 		this.batch = new SpriteBatch();
 		this.assetManager = AssetUtils.initialize(Assets.SPLASH_IMAGE);
 
@@ -30,7 +31,8 @@ public class LaserTagGame extends Game {
 
 
 
-	@Override public void dispose() {
+	@Override
+	public void dispose() {
 		Disposables.disposeOf(this.batch, this.assetManager);
 	}
 

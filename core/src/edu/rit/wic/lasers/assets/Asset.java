@@ -24,13 +24,13 @@ public interface Asset {
 
 	/**
 	 * @param withManager
-	 *     will schedule loading of this asset.
+	 * 	will schedule loading of this asset.
 	 */
 	void load(AssetManager withManager);
 
 	/**
 	 * @param fromManager
-	 *     has to contain the loaded asset.
+	 * 	has to contain the loaded asset.
 	 *
 	 * @return asset represented by this container.
 	 */
@@ -38,11 +38,11 @@ public interface Asset {
 
 	/**
 	 * @param withType
-	 *     class of the loaded asset.
+	 * 	class of the loaded asset.
 	 * @param fromManager
-	 *     has to contain the loaded asset.
+	 * 	has to contain the loaded asset.
 	 * @param <Type>
-	 *     type of stored asset.
+	 * 	type of stored asset.
 	 *
 	 * @return asset represented by this container.
 	 */

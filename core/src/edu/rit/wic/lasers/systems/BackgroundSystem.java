@@ -35,7 +35,8 @@ public class BackgroundSystem extends IteratingSystem {
 		this.camera = camera;
 	}
 
-	@Override protected void processEntity(final Entity entity, final float deltaTime) {
+	@Override
+	protected void processEntity(final Entity entity, final float deltaTime) {
 		TransformComponent transform = transformMapper.get(entity);
 
 		transform.position.set(this.camera.position.x, this.camera.position.y, 10.0f);

@@ -19,15 +19,18 @@ public enum AndroidBeamPriority implements BeamPriority {
 		this.priority = priority;
 	}
 
-	@Override public String toMessageTag() {
+	@Override
+	public String toMessageTag() {
 		return this.name();
 	}
 
-	@Override public int toInt() {
+	@Override
+	public int toInt() {
 		return this.priority;
 	}
 
-	@Override public int compare(final BeamPriority lhs, final BeamPriority rhs) {
+	@Override
+	public int compare(final BeamPriority lhs, final BeamPriority rhs) {
 		int lhsi = lhs.toInt();
 		int rhsi = rhs.toInt();
 
@@ -35,27 +38,33 @@ public enum AndroidBeamPriority implements BeamPriority {
 	}
 
 	public static class Defaults implements BeamPriorityDefaults {
-		@Override public BeamPriority forInfo() {
+		@Override
+		public BeamPriority forInfo() {
 			return INFO;
 		}
 
-		@Override public BeamPriority forDebug() {
+		@Override
+		public BeamPriority forDebug() {
 			return DEBUG;
 		}
 
-		@Override public BeamPriority forWarn() {
+		@Override
+		public BeamPriority forWarn() {
 			return WARN;
 		}
 
-		@Override public BeamPriority forVerbose() {
+		@Override
+		public BeamPriority forVerbose() {
 			return VERBOSE;
 		}
 
-		@Override public BeamPriority forError() {
+		@Override
+		public BeamPriority forError() {
 			return ERROR;
 		}
 
-		@Override public BeamPriority forWtf() {
+		@Override
+		public BeamPriority forWtf() {
 			return WTF;
 		}
 	}

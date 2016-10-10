@@ -24,7 +24,8 @@ public class MovementSystem extends IteratingSystem {
 		super(Family.all(TransformComponent.class, MovementComponent.class).get());
 	}
 
-	@Override protected void processEntity(final Entity entity, final float deltaTime) {
+	@Override
+	protected void processEntity(final Entity entity, final float deltaTime) {
 		TransformComponent transform = transformMapper.get(entity);
 		MovementComponent movement = mvmtMapper.get(entity);
 

@@ -11,7 +11,8 @@ public class AndroidDebugLightRay extends AbstractLightRay {
 		super(new AndroidBeamPriority.Defaults());
 	}
 
-	@Override protected String getTag() {
+	@Override
+	protected String getTag() {
 		String tag = super.getTag();
 
 		if (tag != null)
@@ -21,7 +22,8 @@ public class AndroidDebugLightRay extends AbstractLightRay {
 		return LightRayUtils.getCallerNameNoInner(stackTrace);
 	}
 
-	@Override protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
+	@Override
+	protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
 		if (message.length() < LightRayUtils.MAX_LOG_LENGTH)
 			Logger.log(priority.toInt(), tag, message, t);
 		else {

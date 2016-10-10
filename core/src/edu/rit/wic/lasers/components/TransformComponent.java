@@ -12,7 +12,8 @@ public class TransformComponent implements PoolableComponent {
 	public final Vector2 scale = new Vector2(1.0f, 1.0f);
 	public float rotation = 0.0f;
 
-	@Override public void reset() {
+	@Override
+	public void reset() {
 		position.setZero();
 		scale.set(1.0f, 1.0f);
 		rotation = 0;

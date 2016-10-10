@@ -67,7 +67,8 @@ public class SplashScreen extends ScreenAdapter {
 		return asset.getAssetType() == AssetType.GRAPHICS && Texture.class.isAssignableFrom(asset.getAssetClass());
 	}
 
-	@Override public void render(final float delta) {
+	@Override
+	public void render(final float delta) {
 		GdxUtilities.clearScreen();
 
 		engine.update(delta);
@@ -84,13 +85,15 @@ public class SplashScreen extends ScreenAdapter {
 		pausedDelta = 0;
 	}
 
-	@Override public void pause() {
+	@Override
+	public void pause() {
 		this.game.logger.i("SplashScreen Paused");
 		pausedDelta = System.nanoTime();
 		super.pause();
 	}
 
-	@Override public void resume() {
+	@Override
+	public void resume() {
 		pausedDelta = (System.nanoTime() - pausedDelta) / 1000000000.0f;
 		this.game.logger.i("SplashScreen Resumed: Calculated Pause time is %.3f", pausedDelta);
 		super.resume();

@@ -17,7 +17,8 @@ public class StateComponent implements PoolableComponent {
 		this.time = 0.0f;
 	}
 
-	@Override public void reset() {
+	@Override
+	public void reset() {
 		this.state = 0;
 		this.time = 0.0f;
 	}

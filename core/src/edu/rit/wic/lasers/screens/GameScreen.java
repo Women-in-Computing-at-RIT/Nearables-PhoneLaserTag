@@ -69,11 +69,13 @@ public class GameScreen implements Screen {
 		this.unproject = (v) -> renderCamProvider.get().unproject(v);
 	}
 
-	@Override public void show() {
+	@Override
+	public void show() {
 
 	}
 
-	@Override public void render(final float delta) {
+	@Override
+	public void render(final float delta) {
 		Gdx.gl.glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 
@@ -82,24 +84,29 @@ public class GameScreen implements Screen {
 		this.guiStage.draw();
 	}
 
-	@Override public void resize(final int width, final int height) {
+	@Override
+	public void resize(final int width, final int height) {
 		Viewports.update(this.guiStage, width, height, true);
 		renderViewportProvider.get().update(width, height, true);
 	}
 
-	@Override public void pause() {
+	@Override
+	public void pause() {
 
 	}
 
-	@Override public void resume() {
+	@Override
+	public void resume() {
 
 	}
 
-	@Override public void hide() {
+	@Override
+	public void hide() {
 
 	}
 
-	@Override public void dispose() {
+	@Override
+	public void dispose() {
 
 	}
 }

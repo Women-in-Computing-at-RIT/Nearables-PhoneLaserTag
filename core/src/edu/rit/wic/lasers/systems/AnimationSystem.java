@@ -24,7 +24,8 @@ public class AnimationSystem extends IteratingSystem {
 		super(Family.all(StateComponent.class, AnimationComponent.class).get());
 	}
 
-	@Override protected void processEntity(final Entity entity, final float deltaTime) {
+	@Override
+	protected void processEntity(final Entity entity, final float deltaTime) {
 		TextureComponent tex = texMapper.get(entity);
 		StateComponent state = stateMapper.get(entity);
 		AnimationComponent anim = animMapper.get(entity);

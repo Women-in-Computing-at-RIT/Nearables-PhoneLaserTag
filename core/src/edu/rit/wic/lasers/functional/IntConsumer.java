@@ -5,25 +5,28 @@ package edu.rit.wic.lasers.functional;
  */
 public interface IntConsumer extends PrimitiveConsumer {
 
-	@Override default void accept(Number input) {
+	@Override
+	default void consume(Number input) {
+		this.consume(input.intValue());
+	}
+
+	@Override
+	default void accept(Number input) {
 		this.accept(input.intValue());
 	}
 
 	void accept(int input);
 
-	@Override default void consume(Number input) {
-		this.consume(input.intValue());
-	}
-
-	default void consume(int input) {
-		this.accept(input);
-	}
-
-	@Override default IntConsumer andThen(PrimitiveConsumer after) {
+	@Override
+	default IntConsumer andThen(PrimitiveConsumer after) {
 		return input -> {
 			this.accept(input);
 			after.accept(input);
 		};
+	}
+
+	default void consume(int input) {
+		this.accept(input);
 	}
 
 	default IntConsumer andThen(IntConsumer after) {

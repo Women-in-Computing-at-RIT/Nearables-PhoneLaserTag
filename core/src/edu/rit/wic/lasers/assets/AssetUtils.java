@@ -38,7 +38,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * all TrueType Fonts.
 	 *
 	 * @param splashTexture
-	 *     Initial splash screen texture to load
+	 * 	Initial splash screen texture to load
 	 *
 	 * @return AssetManager with only the splash texture loaded
 	 */
@@ -54,7 +54,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * No other assets will be loaded other than those specified.
 	 *
 	 * @param initialAssets
-	 *     Initial assets to load
+	 * 	Initial assets to load
 	 *
 	 * @return AssetManager with initial assets loaded and no others
 	 */
@@ -99,7 +99,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * all TrueType Fonts.
 	 *
 	 * @param splashAsset
-	 *     Initial splash screen texture to load
+	 * 	Initial splash screen texture to load
 	 *
 	 * @return AssetManager with only the splash texture loaded
 	 */
@@ -113,7 +113,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * all TrueType Fonts.
 	 *
 	 * @param splashTexture
-	 *     Initial splash screen texture to load
+	 * 	Initial splash screen texture to load
 	 *
 	 * @return AssetManager with only the splash texture loaded
 	 */
@@ -138,11 +138,11 @@ public final class AssetUtils extends UtilitiesClass {
 	 * the CPU.
 	 *
 	 * @param manager
-	 *     AssetManager to load assets with
+	 * 	AssetManager to load assets with
 	 * @param assets
-	 *     List of {@link Asset assets} to load
+	 * 	List of {@link Asset assets} to load
 	 * @param loadAction
-	 *     Action after every manager update.
+	 * 	Action after every manager update.
 	 */
 	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets, FloatConsumer loadAction) {
 		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor), loadAction);
@@ -155,11 +155,11 @@ public final class AssetUtils extends UtilitiesClass {
 	 * the CPU.
 	 *
 	 * @param manager
-	 *     AssetManager to load assets with
+	 * 	AssetManager to load assets with
 	 * @param descriptors
-	 *     List of {@link AssetDescriptor descriptors} to load
+	 * 	List of {@link AssetDescriptor descriptors} to load
 	 * @param loadAction
-	 *     Action after every manager update.
+	 * 	Action after every manager update.
 	 */
 	public static void ensureLoadAssets(AssetManager manager, Iterable<AssetDescriptor> descriptors, FloatConsumer loadAction) {
 		for (AssetDescriptor desc : descriptors)
@@ -179,9 +179,9 @@ public final class AssetUtils extends UtilitiesClass {
 	 * what {@link AssetManager#unload(String)} checks before unloading.
 	 *
 	 * @param manager
-	 *     Asset Manager to unload assets from
+	 * 	Asset Manager to unload assets from
 	 * @param assets
-	 *     A List of paths of the assets to unload
+	 * 	A List of paths of the assets to unload
 	 *
 	 * @return Set of all asset names that were not freed.
 	 */
@@ -202,22 +202,22 @@ public final class AssetUtils extends UtilitiesClass {
 	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
 	 *
 	 * @param t
-	 *     Base texture
+	 * 	Base texture
 	 * @param n
-	 *     Number of frames to grab
+	 * 	Number of frames to grab
 	 * @param r
-	 *     Row to start on
+	 * 	Row to start on
 	 * @param c
-	 *     Column to start on
+	 * 	Column to start on
 	 * @param width
-	 *     Width of each frame
+	 * 	Width of each frame
 	 * @param height
-	 *     Height of each frame
+	 * 	Height of each frame
 	 *
 	 * @return Animation strip with n frames
 	 *
 	 * @throws IllegalStateException
-	 *     if n frames could not be grabbed
+	 * 	if n frames could not be grabbed
 	 */
 	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height) {
 		return getAnimationStrip(t, n, r, c, width, height, Functions.identity());
@@ -227,24 +227,24 @@ public final class AssetUtils extends UtilitiesClass {
 	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
 	 *
 	 * @param t
-	 *     Base texture
+	 * 	Base texture
 	 * @param n
-	 *     Number of frames to grab
+	 * 	Number of frames to grab
 	 * @param r
-	 *     Row to start on
+	 * 	Row to start on
 	 * @param c
-	 *     Column to start on
+	 * 	Column to start on
 	 * @param width
-	 *     Width of each frame
+	 * 	Width of each frame
 	 * @param height
-	 *     Height of each frame
+	 * 	Height of each frame
 	 * @param frameTransform
-	 *     Function that takes a TextureRegion and creates a transformed version
+	 * 	Function that takes a TextureRegion and creates a transformed version
 	 *
 	 * @return Animation strip with n frames
 	 *
 	 * @throws IllegalStateException
-	 *     if n frames could not be grabbed
+	 * 	if n frames could not be grabbed
 	 */
 	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height, Function<TextureRegion, TextureRegion> frameTransform) {
 		TextureRegion[][] tiles = TextureRegion.split(t, width, height);
@@ -270,18 +270,18 @@ public final class AssetUtils extends UtilitiesClass {
 	 * assumed the frames start at the top left of the texture.
 	 *
 	 * @param t
-	 *     Base texture
+	 * 	Base texture
 	 * @param n
-	 *     Number of frames to grab
+	 * 	Number of frames to grab
 	 * @param width
-	 *     Width of each frame
+	 * 	Width of each frame
 	 * @param height
-	 *     Height of each frame
+	 * 	Height of each frame
 	 *
 	 * @return Animation strip with n frames
 	 *
 	 * @throws IllegalStateException
-	 *     if n frames could not be grabbed
+	 * 	if n frames could not be grabbed
 	 */
 	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height) {
 		return getAnimationStrip(t, n, width, height, Functions.identity());
@@ -292,20 +292,20 @@ public final class AssetUtils extends UtilitiesClass {
 	 * assumed the frames start at the top left of the texture.
 	 *
 	 * @param t
-	 *     Base texture
+	 * 	Base texture
 	 * @param n
-	 *     Number of frames to grab
+	 * 	Number of frames to grab
 	 * @param width
-	 *     Width of each frame
+	 * 	Width of each frame
 	 * @param height
-	 *     Height of each frame
+	 * 	Height of each frame
 	 * @param frameTransform
-	 *     Function that takes a TextureRegion and creates a transformed version
+	 * 	Function that takes a TextureRegion and creates a transformed version
 	 *
 	 * @return Animation strip with n frames
 	 *
 	 * @throws IllegalStateException
-	 *     if n frames could not be grabbed
+	 * 	if n frames could not be grabbed
 	 */
 	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height, Function<TextureRegion, TextureRegion> frameTransform) {
 		return getAnimationStrip(t, n, 0, 0, width, height, frameTransform);
@@ -315,9 +315,9 @@ public final class AssetUtils extends UtilitiesClass {
 	 * Given a hexcode as a string, returns the appropriate LibGDX Color.
 	 *
 	 * @param hex
-	 *     Hex code for RGB color
+	 * 	Hex code for RGB color
 	 * @param alpha
-	 *     Alpha value between 0 and 1
+	 * 	Alpha value between 0 and 1
 	 *
 	 * @return LibGDX Color represented by the hex code and alpha value
 	 */
@@ -331,9 +331,9 @@ public final class AssetUtils extends UtilitiesClass {
 	 * is left unchanged.
 	 *
 	 * @param hex
-	 *     24-bit bit pattern for RGB color
+	 * 	24-bit bit pattern for RGB color
 	 * @param alpha
-	 *     Alpha value between 0 and 1
+	 * 	Alpha value between 0 and 1
 	 *
 	 * @return LibGDX Color
 	 */
@@ -350,7 +350,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * Given a hexcode as a string, returns the appropriate LibGDX Color.
 	 *
 	 * @param hexa
-	 *     Hex code for RGBA color
+	 * 	Hex code for RGBA color
 	 *
 	 * @return LibGDX Color represented by the hex code w/ alpha value
 	 */
@@ -370,7 +370,7 @@ public final class AssetUtils extends UtilitiesClass {
 	 * There is a loss of precision when converted to a float between 0 and 1.
 	 *
 	 * @param hex
-	 *     24-bit rgb or 32-bit rgba bit pattern
+	 * 	24-bit rgb or 32-bit rgba bit pattern
 	 *
 	 * @return LibGDX Color
 	 */

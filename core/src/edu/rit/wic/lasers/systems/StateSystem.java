@@ -19,7 +19,8 @@ public class StateSystem extends IteratingSystem {
 		super(Family.all(StateComponent.class).get());
 	}
 
-	@Override protected void processEntity(final Entity entity, final float deltaTime) {
+	@Override
+	protected void processEntity(final Entity entity, final float deltaTime) {
 		stateMapper.get(entity).time += deltaTime;
 	}
 }

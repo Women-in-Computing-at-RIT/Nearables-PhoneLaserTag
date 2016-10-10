@@ -69,14 +69,13 @@ public enum Assets implements Asset {
 
 	<T> Assets(AssetDescriptor<T> descriptor, AssetType type) {
 		this(descriptor, type, new InternalFileHandleResolver());
-	}	@Override public String getPath() {
-		return this.handle.path();
 	}
 
 	<T> Assets(String path, Class<T> assetClass, AssetType type) {
 		this(new AssetDescriptor<>(path, assetClass), type);
-	}	@Override public Class<?> getAssetClass() {
-		return this.descriptor.type;
+	}	@Override
+	public String getPath() {
+		return this.handle.path();
 	}
 
 	public static ImmutableObjectSet<Asset> getAssetsOfType(AssetType type) {
@@ -84,33 +83,44 @@ public enum Assets implements Asset {
 			return ImmutableObjectSet.of();
 		else
 			return GdxSets.toImmutable(typeToAssets.get(type));
-	}	@Override public FileHandle getFileHandle() {
+	}
+
+	@Override
+	public Class<?> getAssetClass() {
+		return this.descriptor.type;
+	}
+
+
+
+	@Override
+	public FileHandle getFileHandle() {
 		return this.handle;
 	}
 
-	@Override public AssetType getAssetType() {
+	@Override
+	public AssetType getAssetType() {
 		return this.assetType;
 	}
 
-	@Override public void load(final AssetManager withManager) {
+	@Override
+	public void load(final AssetManager withManager) {
 		withManager.load(this.descriptor);
 	}
 
-	@Override public Object get(final AssetManager fromManager) {
+	@Override
+	public Object get(final AssetManager fromManager) {
 		return fromManager.get(this.descriptor);
 	}
 
-	@Override public <T> T get(final Class<T> withType, final AssetManager fromManager) {
+	@Override
+	public <T> T get(final Class<T> withType, final AssetManager fromManager) {
 		return fromManager.get(this.getPath(), withType);
 	}
 
-	@Override public AssetDescriptor<?> getDescriptor() {
+	@Override
+	public AssetDescriptor<?> getDescriptor() {
 		return this.descriptor;
 	}
-
-
-
-
 
 
 

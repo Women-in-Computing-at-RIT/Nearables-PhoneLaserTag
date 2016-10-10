@@ -19,95 +19,118 @@ public abstract class AbstractLightRay implements LightRay {
 		return tag;
 	}
 
-	@Override public void setTag(final String tag) {
+	@Override
+	public void setTag(final String tag) {
 		this.logTag.set(tag);
 	}
 
-	@Override public void v(final String message, final Object... args) {
+	@Override
+	public void v(final String message, final Object... args) {
 		prepareLog(defaults.forVerbose(), null, message, args);
 	}
 
-	@Override public void v(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void v(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forVerbose(), t, message, args);
 	}
 
-	@Override public void v(final Throwable t) {
+	@Override
+	public void v(final Throwable t) {
 		prepareLog(defaults.forVerbose(), t, null);
 	}
 
-	@Override public void d(final String message, final Object... args) {
+	@Override
+	public void d(final String message, final Object... args) {
 		prepareLog(defaults.forDebug(), null, message, args);
 	}
 
-	@Override public void d(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void d(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forDebug(), t, message, args);
 	}
 
-	@Override public void d(final Throwable t) {
+	@Override
+	public void d(final Throwable t) {
 		prepareLog(defaults.forDebug(), t, null);
 	}
 
-	@Override public void i(final String message, final Object... args) {
+	@Override
+	public void i(final String message, final Object... args) {
 		prepareLog(defaults.forInfo(), null, message, args);
 	}
 
-	@Override public void i(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void i(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forInfo(), t, message, args);
 	}
 
-	@Override public void i(final Throwable t) {
+	@Override
+	public void i(final Throwable t) {
 		prepareLog(defaults.forInfo(), t, null);
 	}
 
-	@Override public void w(final String message, final Object... args) {
+	@Override
+	public void w(final String message, final Object... args) {
 		prepareLog(defaults.forWarn(), null, message, args);
 	}
 
-	@Override public void w(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void w(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forWarn(), t, message, args);
 	}
 
-	@Override public void w(final Throwable t) {
+	@Override
+	public void w(final Throwable t) {
 		prepareLog(defaults.forWarn(), t, null);
 	}
 
-	@Override public void e(final String message, final Object... args) {
+	@Override
+	public void e(final String message, final Object... args) {
 		prepareLog(defaults.forError(), null, message, args);
 	}
 
-	@Override public void e(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void e(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forError(), t, message, args);
 	}
 
-	@Override public void e(final Throwable t) {
+	@Override
+	public void e(final Throwable t) {
 		prepareLog(defaults.forError(), t, null);
 	}
 
-	@Override public void wtf(final String message, final Object... args) {
+	@Override
+	public void wtf(final String message, final Object... args) {
 		prepareLog(defaults.forWtf(), null, message, args);
 	}
 
-	@Override public void wtf(final Throwable t, final String message, final Object... args) {
+	@Override
+	public void wtf(final Throwable t, final String message, final Object... args) {
 		prepareLog(defaults.forWtf(), t, message, args);
 	}
 
-	@Override public void wtf(final Throwable t) {
+	@Override
+	public void wtf(final Throwable t) {
 		prepareLog(defaults.forWtf(), t, null);
 	}
 
-	@Override public void log(final BeamPriority priority, final String message, final Object... args) {
+	@Override
+	public void log(final BeamPriority priority, final String message, final Object... args) {
 		prepareLog(priority, null, message, args);
 	}
 
-	@Override public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
+	@Override
+	public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
 		prepareLog(priority, t, message, args);
 	}
 
-	@Override public void log(final BeamPriority priority, final Throwable t) {
+	@Override
+	public void log(final BeamPriority priority, final Throwable t) {
 		prepareLog(priority, t, null);
 	}
 
-	@Override public boolean isLoggable(String tag, BeamPriority priority) {
+	@Override
+	public boolean isLoggable(String tag, BeamPriority priority) {
 		return true;
 	}
 
