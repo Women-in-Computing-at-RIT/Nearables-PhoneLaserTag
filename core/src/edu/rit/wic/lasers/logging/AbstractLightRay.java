@@ -7,7 +7,7 @@ public abstract class AbstractLightRay implements LightRay {
 
 	final ThreadLocal<String> logTag = new ThreadLocal<>();
 
-	private final BeamPriorityDefaults defaults;
+	protected final BeamPriorityDefaults defaults;
 
 	public AbstractLightRay(BeamPriorityDefaults defaults) {
 		this.defaults = defaults;

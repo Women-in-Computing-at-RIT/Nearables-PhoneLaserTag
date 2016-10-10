@@ -1,5 +1,6 @@
 package edu.rit.wic.lasers.logging;
 
+import com.annimon.stream.function.Consumer;
 import com.github.czyzby.kiwi.util.common.UtilitiesClass;
 import com.google.common.base.Preconditions;
 
@@ -55,6 +56,19 @@ public final class LightRayUtils extends UtilitiesClass {
 
 	public static String getCallerNameNoInner(StackTraceElement[] stackTrace) {
 		return getClassNameNoInner(extractCaller(stackTrace).getClassName());
+	}
+
+	public static void processLongMessage(String message, Consumer<String> consumer) {
+		for(int i = 0, length = message.length(); i < length; i++) {
+			int newline = message.indexOf('\n', i);
+			newline = newline != -1 ? newline : length;
+			do {
+				int end = Math.min(newline, i + MAX_LOG_LENGTH);
+				String part = message.substring(i, end);
+				consumer.accept(part);
+				i = end;
+			} while(i < newline);
+		}
 	}
 
 }

@@ -12,7 +12,12 @@ public class AndroidDebugLightRay extends AbstractLightRay {
 	}
 
 	@Override protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
-		Logger.log(priority.toInt(), tag, message, t);
+		if(message.length() < LightRayUtils.MAX_LOG_LENGTH)
+			Logger.log(priority.toInt(), tag, message, t);
+		else {
+			Logger.i("Long Message (2 or More Messages) Follows:");
+			LightRayUtils.processLongMessage(message, str -> Logger.log(priority.toInt(), tag, str, t));
+		}
 	}
 
 	@Override protected String getTag() {

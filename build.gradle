@@ -54,7 +54,9 @@ allprojects {
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: "com.android.application"
     apply plugin: 'com.neenbedankt.android-apt'
+    apply plugin: "me.tatarka.retrolambda"
 
     configurations { natives }
 
