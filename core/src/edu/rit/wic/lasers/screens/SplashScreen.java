@@ -9,10 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.github.czyzby.kiwi.util.gdx.GdxUtilities;
+import static com.google.common.base.Preconditions.checkArgument;
 
 import edu.rit.wic.lasers.LaserTagGame;
 import edu.rit.wic.lasers.assets.Asset;
-import edu.rit.wic.lasers.assets.Assets;
+import edu.rit.wic.lasers.assets.AssetType;
 import edu.rit.wic.lasers.components.TextureComponent;
 import edu.rit.wic.lasers.components.TransformComponent;
 import edu.rit.wic.lasers.functional.Callback;
@@ -32,9 +33,7 @@ public class SplashScreen extends ScreenAdapter {
 	private float pausedDelta = 0;
 
 	public SplashScreen(final LaserTagGame game, final Asset image, Iterable<Asset> forLoading, Callback onComplete, float minSeconds) {
-		if (image.getAssetType() != Assets.AssetType.GRAPHICS || !ClassReflection.isAssignableFrom(Texture.class, image.getAssetClass())) {
-			throw new IllegalArgumentException("SplashScreen expects Texture Asset!");
-		}
+		checkArgument(image.getAssetType() == AssetType.GRAPHICS && Texture.class.isAssignableFrom(image.getAssetClass()), "SplashScreen expects Texture Asset!");
 
 		this.game = game;
 		this.minDisplayTime = minSeconds;
@@ -46,13 +45,11 @@ public class SplashScreen extends ScreenAdapter {
 		float width = splashTextureComp.texture.getTexture().getWidth();
 		float height = splashTextureComp.texture.getTexture().getHeight();
 
-		RenderingSystem rendering = new RenderingSystem(this.game.getBatch(), new StretchViewport(width, height));
-
 		Entity splashEntity = new Entity();
 		splashEntity.add(splashTextureComp);
 		splashEntity.add(splashTransform);
 
-		engine.addSystem(rendering);
+		engine.addSystem( new RenderingSystem(this.game.getBatch(), new StretchViewport(width, height)));
 		engine.addEntity(splashEntity);
 
 		for (Asset asset : forLoading)
