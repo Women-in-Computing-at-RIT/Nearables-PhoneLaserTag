@@ -1,0 +1,3 @@
+[submodule "ResonatorServer"]
+    path = server
+    url = https://github.com/Women-in-Computing-at-RIT/Nearables-ResonatorServer.git
