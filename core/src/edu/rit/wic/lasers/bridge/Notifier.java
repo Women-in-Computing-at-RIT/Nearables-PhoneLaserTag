@@ -1,7 +1,13 @@
 package edu.rit.wic.lasers.bridge;
 
+// This is an example, could probably be done better than requiring translation on the
+// platform end, but it's also not a huge feature/big deal.
+
 /**
- * Created by Matthew on 10/11/2016.
+ * Platform-independent notification operations, these are relatively short-lived
+ * messages and should not require user-interaction to dismiss.
+ *
+ * @author Matthew Crocco
  */
 public interface Notifier {
 
@@ -15,7 +21,7 @@ public interface Notifier {
 
 	enum Duration {
 		QUICK,
-		NORMAL;
+		NORMAL
 	}
 
 	enum Type {
@@ -23,6 +29,6 @@ public interface Notifier {
 		WARNING,
 		ERROR,
 		INFO,
-		SPECIAL;
+		SPECIAL
 	}
 }

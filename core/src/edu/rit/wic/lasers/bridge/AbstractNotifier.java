@@ -1,7 +1,11 @@
 package edu.rit.wic.lasers.bridge;
 
 /**
- * Created by Matthew on 10/11/2016.
+ * Notifier implementation that auto-fills the
+ * {@link edu.rit.wic.lasers.bridge.Notifier.Type Notification Type} and calls
+ * {@link #msg(Duration, Type, String, Object...)}.
+ *
+ * @author Matthew Crocco
  */
 public abstract class AbstractNotifier implements Notifier {
 

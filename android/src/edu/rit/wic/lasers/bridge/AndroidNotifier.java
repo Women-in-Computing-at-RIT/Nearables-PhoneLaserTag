@@ -7,7 +7,11 @@ import com.sdsmdg.tastytoast.TastyToast;
 import edu.rit.wic.lasers.logging.Beam;
 
 /**
- * Created by Matthew on 10/11/2016.
+ * Android implementation of {@link Notifier} which uses {@link TastyToast} to show
+ * various sweet Toast notifications. This is executed on the UI Thread and may not be
+ * executed immediately... but should be executed pretty quickly!
+ *
+ * @author Matthew Crocco
  */
 public class AndroidNotifier extends AbstractNotifier {
 
