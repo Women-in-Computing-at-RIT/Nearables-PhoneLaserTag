@@ -44,6 +44,9 @@
    float   reportRayFixture(long, float, float, float, float, float);
 }
 
+# Grade Retrolambda
+-dontwarn java.lang.invoke.*
+
 ### Added for Retrofit dependency
 
 # Platform calls Class.forName on types which do not exist on Android to determine platform.

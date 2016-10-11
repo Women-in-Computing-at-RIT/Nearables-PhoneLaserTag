@@ -120,7 +120,7 @@ project(":core") {
         compile "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
         compile "io.requery:requery:$requeryVersion"
         compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
-//        compile "io.reactivex:rxjava:$rxJavaVersion"
+        compile "io.reactivex:rxjava:$rxJavaVersion"
         compile "com.google.guava:guava:$guavaVersion"
         compile "net.sourceforge" +
                 ".streamsupport:streamsupport:$streamSupportVersion"

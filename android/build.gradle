@@ -16,6 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "wic.rit.edu.lasers"
+        multiDexEnabled = true
         minSdkVersion 14
         targetSdkVersion 23
     }
