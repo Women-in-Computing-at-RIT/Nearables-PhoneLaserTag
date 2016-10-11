@@ -1,3 +1,3 @@
-[submodule "Laser Tag Resonator Server"]
+[submodule "Resonator Server"]
 	path = server
 	url = https://github.com/Women-in-Computing-at-RIT/Nearables-ResonatorServer.git
