@@ -1,6 +1,6 @@
 package edu.rit.wic.lasers.logging;
 
-import com.annimon.stream.function.Consumer;
+import java8.util.function.Consumer;
 import com.github.czyzby.kiwi.util.common.UtilitiesClass;
 import com.google.common.base.Preconditions;
 
@@ -10,10 +10,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Various utilities needed for {@link Beam} logging classes for manipulating Stack
- * Traces and {@link StackTraceElement StackTraceElements}. Various constants are also
- * stored here such as the maximum length of a message for logging and the call stack
- * index of callers.
+ * Various utilities needed for {@link Beam} logging classes for manipulating Stack Traces
+ * and {@link StackTraceElement StackTraceElements}. Various constants are also stored
+ * here such as the maximum length of a message for logging and the call stack index of
+ * callers.
  *
  * @author Matthew Crocco
  */
@@ -25,16 +25,20 @@ public final class LightRayUtils extends UtilitiesClass {
 	/** Index of Caller in a {@link java.lang.Throwable} stack trace */
 	public static final int CALL_STACK_INDEX = 5;
 
-	private static final Pattern PATTERN_ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
+	private static final Pattern PATTERN_ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)"
+		+ "+$");
 	private static final int STACK_TRACE_SW_SIZE = 256;
 
 	/**
 	 * Gets Stack Trace as a string from a throwable.
 	 *
 	 * @param t
-	 *  Throwable to get stack trace from
+	 * 	Throwable to get stack trace from
+	 *
 	 * @return Stack trace as string
-	 * @throws NullPointerException If parameter is null
+	 *
+	 * @throws NullPointerException
+	 * 	If parameter is null
 	 */
 	public static String getStackTrace(Throwable t) {
 		t = Preconditions.checkNotNull(t, "Throwable to parse is null!");
@@ -50,13 +54,16 @@ public final class LightRayUtils extends UtilitiesClass {
 
 	/**
 	 * Gets the Class Name from a {@link StackTraceElement} without any synthetic
-	 * components in the name like "$1" for the first inner class and so on. Will be
-	 * the Simple Name, not the Fully-Qualified Name.
+	 * components in the name like "$1" for the first inner class and so on. Will be the
+	 * Simple Name, not the Fully-Qualified Name.
 	 *
 	 * @param element
-	 *  {@link StackTraceElement} from which to get class name
+	 * 	{@link StackTraceElement} from which to get class name
+	 *
 	 * @return Class name without inner class details
-	 * @throws NullPointerException If parameter is null
+	 *
+	 * @throws NullPointerException
+	 * 	If parameter is null
 	 */
 	public static String getClassNameNoInner(StackTraceElement element) {
 		Preconditions.checkNotNull(element);
@@ -69,7 +76,8 @@ public final class LightRayUtils extends UtilitiesClass {
 	 * classes and package details. Leaving only the Class' simple name.
 	 *
 	 * @param className
-	 *  Class Name as String
+	 * 	Class Name as String
+	 *
 	 * @return Simple name of Class without inner class or package details
 	 */
 	public static String getClassNameNoInner(String className) {
@@ -86,20 +94,24 @@ public final class LightRayUtils extends UtilitiesClass {
 	 * Will be the Simple Name, not the Fully-Qualified Name.
 	 *
 	 * @param stackTrace
-	 *  Array {@link StackTraceElement elements} from which to get caller
+	 * 	Array {@link StackTraceElement elements} from which to get caller
+	 *
 	 * @return Class name of caller without inner class details
-	 * @throws NullPointerException If parameter is null
+	 *
+	 * @throws NullPointerException
+	 * 	If parameter is null
 	 */
 	public static String getCallerNameNoInner(StackTraceElement[] stackTrace) {
 		return getClassNameNoInner(extractCaller(stackTrace).getClassName());
 	}
 
 	/**
-	 * Gets the {@link StackTraceElement} representing the caller of the top-most
-	 * method in the given stack trace.
+	 * Gets the {@link StackTraceElement} representing the caller of the top-most method
+	 * in the given stack trace.
 	 *
 	 * @param stackTrace
-	 *  Array of {@link StackTraceElement elements} from which to get caller
+	 * 	Array of {@link StackTraceElement elements} from which to get caller
+	 *
 	 * @return {@link StackTraceElement} of caller
 	 */
 	public static StackTraceElement extractCaller(StackTraceElement[] stackTrace) {
@@ -111,25 +123,30 @@ public final class LightRayUtils extends UtilitiesClass {
 	 * method in the given stack trace.
 	 *
 	 * @param stackTrace
-	 *  Array of {@link StackTraceElement elements} from which to get nth element
+	 * 	Array of {@link StackTraceElement elements} from which to get nth element
+	 *
 	 * @return {@link StackTraceElement} of nth element in stack trace
-	 * @throws ArrayIndexOutOfBoundsException if n >= Stack Trace length
+	 *
+	 * @throws ArrayIndexOutOfBoundsException
+	 * 	if n >= Stack Trace length
 	 */
-	public static StackTraceElement extractElement(StackTraceElement[] stackTrace, int n) {
-		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace elements, check proguard.");
+	public static StackTraceElement extractElement(StackTraceElement[] stackTrace,
+	                                               int n) {
+		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace "
+			+ "elements, check proguard.");
 
 		return stackTrace[n];
 	}
 
 	/**
 	 * Takes a long string and breaks it into chunks of characters then passed to a
-	 * consuming processor function. The length of the chunks are determined by
-	 * {@link #MAX_LOG_LENGTH}.
+	 * consuming processor function. The length of the chunks are determined by {@link
+	 * #MAX_LOG_LENGTH}.
 	 *
 	 * @param message
-	 *  Message String
+	 * 	Message String
 	 * @param consumer
-	 *  Consuming processor function
+	 * 	Consuming processor function
 	 */
 	public static void processLongMessage(String message, Consumer<String> consumer) {
 		// For each position in string

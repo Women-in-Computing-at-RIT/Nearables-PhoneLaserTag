@@ -3,13 +3,10 @@ package edu.rit.wic.lasers.functional;
 
 /**
  * <p> function that takes a float value and returns nothing. Can be applied in sequence
- * using {@link FloatConsumer#andThen(PrimitiveConsumer)}.
- * </p>
- * <p>
- *     Acts exactly the same as {@link Consumer} but for float primitives.
- * </p>
+ * using {@link FloatConsumer#andThen(PrimitiveConsumer)}. </p> <p> Acts exactly the same
+ * as {@link java8.util.function.Consumer Consumer} but for float primitives. </p>
  *
- * @author  Matthew Crocco
+ * @author Matthew Crocco
  */
 @FunctionalInterface
 public interface FloatConsumer extends PrimitiveConsumer {
@@ -24,8 +21,6 @@ public interface FloatConsumer extends PrimitiveConsumer {
 		this.accept(input.floatValue());
 	}
 
-	void accept(float input);
-
 	@Override
 	default FloatConsumer andThen(PrimitiveConsumer after) {
 		return (input) -> {
@@ -37,6 +32,8 @@ public interface FloatConsumer extends PrimitiveConsumer {
 	default void consume(float input) {
 		this.accept(input);
 	}
+
+	void accept(float input);
 
 	default FloatConsumer andThen(FloatConsumer after) {
 		return (input) -> {

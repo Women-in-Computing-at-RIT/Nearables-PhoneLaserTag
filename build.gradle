@@ -32,7 +32,7 @@ allprojects {
         caffeineVersion = '0.4.4'
         kiwiLmlVersion = '1.7.1.9.3'
         gdxUtilsVersion = '0.13.3'
-        lightweightStreamsVersion = '1.1.2'
+        streamSupportVersion = '1.5.2'
         gsonVersion = '2.7'
         retrofitVersion = '2.1.0'
         requeryVersion = '1.0.0'
@@ -42,6 +42,13 @@ allprojects {
         guavaVersion = '19.0'
         loggerVersion = '1.15'
         tastyToastVersion = '0.1.0'
+
+        sparkVersion = '2.5'
+        lombokVersion = '1.16.10'
+        jacksonVersion = '2.5.1'
+        easymockVersion = '3.3.1'
+        sql2oVersion = '1.5.4'
+        postgresqlVersion = '9.4-1201-jdbc41'
     }
 
     repositories {
@@ -107,7 +114,6 @@ project(":core") {
         compile "com.badlogicgames.ashley:ashley:$ashleyVersion"
         compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
         compile "com.github.czyzby:gdx-kiwi:$kiwiLmlVersion"
-        compile "com.annimon:stream:$lightweightStreamsVersion"
         compile "com.google.code.gson:gson:$gsonVersion"
         compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
         compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
@@ -116,9 +122,30 @@ project(":core") {
         compile "com.squareup.okhttp3:okhttp:$okHttpVersion"
         compile "io.reactivex:rxjava:$rxJavaVersion"
         compile "com.google.guava:guava:$guavaVersion"
+        compile "net.sourceforge" +
+                ".streamsupport:streamsupport:$streamSupportVersion"
 
         // Already imported with kiwi
         //compile "com.github.czyzby:gdx-lml:1.7.1.9.3"
+    }
+}
+
+project(":server") {
+    apply plugin: "java"
+    apply plugin: "war"
+
+    dependencies {
+        compile "com.sparkjava:spark-core:$sparkVersion"
+        compile "com.fasterxml.jackson.core:jackson-core:$jacksonVersion"
+        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        compile "org.sql2o:sql2o:$sql2oVersion"
+        compile "org.postgresql:postgresql:$postgresqlVersion"
+        compile "com.google.guava:guava:$guavaVersion"
+
+        testCompile "org.easymock:easymock:$easymockVersion"
+        testCompile "com.google.code.gson:gson:$gsonVersion"
+
+        providedCompile "org.projectlombok:lombok:$lombokVersion"
     }
 }
 

@@ -14,10 +14,10 @@ import edu.rit.wic.lasers.screens.GameScreen;
 import edu.rit.wic.lasers.screens.SplashScreen;
 
 /**
- *  Game launching class. Initializes necessary one-off utilities and tools
- *  like {@link SpriteBatch} and {@link AssetManager}.
+ * Game launching class. Initializes necessary one-off utilities and tools like {@link
+ * SpriteBatch} and {@link AssetManager}.
  *
- *  @author Matthew Crocco
+ * @author Matthew Crocco
  */
 public class LaserTagGame extends Game {
 
@@ -34,7 +34,8 @@ public class LaserTagGame extends Game {
 		this.logger.i("Initial assets loaded and ready! Moving to SplashScreen...");
 
 		Texture.setAssetManager(this.assetManager);
-		setScreen(new SplashScreen(this, Assets.SPLASH_IMAGE, GdxArrays.newArray(), () -> setScreen(new GameScreen(this)), 5));
+		setScreen(new SplashScreen(this, Assets.SPLASH_IMAGE, GdxArrays.newArray(), ()
+			-> setScreen(new GameScreen(this)), 5));
 	}
 
 

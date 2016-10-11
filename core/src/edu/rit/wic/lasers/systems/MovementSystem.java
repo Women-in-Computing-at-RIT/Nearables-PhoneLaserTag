@@ -21,8 +21,10 @@ public class MovementSystem extends IteratingSystem {
 
 	private final Vector2 tmp = new Vector2();
 
-	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
-	private final ComponentMapper<MovementComponent> mvmtMapper = ComponentMappers.MOVEMENT_MAPPER;
+	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers
+		.TRANSFORM_MAPPER;
+	private final ComponentMapper<MovementComponent> mvmtMapper = ComponentMappers
+		.MOVEMENT_MAPPER;
 
 	public MovementSystem() {
 		super(Family.all(TransformComponent.class, MovementComponent.class).get());

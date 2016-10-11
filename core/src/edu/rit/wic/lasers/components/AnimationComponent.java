@@ -2,19 +2,14 @@ package edu.rit.wic.lasers.components;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.IntMap;
-import com.badlogic.gdx.utils.OrderedMap;
-import com.github.czyzby.kiwi.util.gdx.collection.GdxMaps;
 
 /**
+ * <p> {@link PoolableComponent Poolable component} allowing use of an {@link
+ * com.badlogic.ashley.core.Entity} in an Animation system. Consists of an {@link IntMap}
+ * to {@link Animation Animations}. </p>
  * <p>
- * {@link PoolableComponent Poolable component} allowing use of an {@link com.badlogic.ashley.core.Entity}
- * in an Animation system. Consists of an {@link IntMap} to {@link Animation Animations}.
- * </p>
- *
- * <p>
- * This is intended to be used with enumerated integers represnting each animation, then
- * mapping these integer keys to the respective animations.
- * </p>
+ * <p> This is intended to be used with enumerated integers represnting each animation,
+ * then mapping these integer keys to the respective animations. </p>
  *
  * @author Matthew Crocco
  */

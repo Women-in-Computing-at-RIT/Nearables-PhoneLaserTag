@@ -13,15 +13,16 @@ import edu.rit.wic.lasers.components.TransformComponent;
 
 /**
  * {@link IteratingSystem} to render background {@link Entity entities}. That is those
- * with a {@link TransformComponent} and {@link BackgroundComponent}. The primary
- * benefit is that the transform's z-value (depth) is ignored and the entity is forced
- * to the back and follows the camera.
+ * with a {@link TransformComponent} and {@link BackgroundComponent}. The primary benefit
+ * is that the transform's z-value (depth) is ignored and the entity is forced to the back
+ * and follows the camera.
  *
  * @author Matthew Crocco
  */
 public class BackgroundSystem extends IteratingSystem {
 
-	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
+	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers
+		.TRANSFORM_MAPPER;
 
 	private Camera camera;
 

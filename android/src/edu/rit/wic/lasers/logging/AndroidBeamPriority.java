@@ -1,5 +1,6 @@
 package edu.rit.wic.lasers.logging;
 
+import java8.lang.Integers;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -37,7 +38,7 @@ public enum AndroidBeamPriority implements BeamPriority {
 		int lhsi = lhs.toInt();
 		int rhsi = rhs.toInt();
 
-		return lhsi < rhsi ? -1 : (lhsi == rhsi ? 0 : 1);
+		return Integers.compare(lhsi, rhsi);
 	}
 
 	public static class Defaults implements BeamPriorityDefaults {

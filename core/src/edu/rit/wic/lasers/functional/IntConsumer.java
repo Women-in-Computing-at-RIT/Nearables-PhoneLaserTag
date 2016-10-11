@@ -2,13 +2,10 @@ package edu.rit.wic.lasers.functional;
 
 /**
  * <p> function that takes an int value and returns nothing. Can be applied in sequence
- * using {@link IntConsumer#andThen(PrimitiveConsumer)}.
- * </p>
- * <p>
- *     Acts exactly the same as {@link Consumer} but for int primitives.
- * </p>
+ * using {@link IntConsumer#andThen(PrimitiveConsumer)}. </p> <p> Acts exactly the same as
+ * {@link java8.util.function.Consumer} but for int primitives. </p>
  *
- * @author  Matthew Crocco
+ * @author Matthew Crocco
  */
 public interface IntConsumer extends PrimitiveConsumer {
 
@@ -22,8 +19,6 @@ public interface IntConsumer extends PrimitiveConsumer {
 		this.accept(input.intValue());
 	}
 
-	void accept(int input);
-
 	@Override
 	default IntConsumer andThen(PrimitiveConsumer after) {
 		return input -> {
@@ -35,6 +30,8 @@ public interface IntConsumer extends PrimitiveConsumer {
 	default void consume(int input) {
 		this.accept(input);
 	}
+
+	void accept(int input);
 
 	default IntConsumer andThen(IntConsumer after) {
 		return input -> {

@@ -13,17 +13,20 @@ import edu.rit.wic.lasers.components.TextureComponent;
 
 /**
  * {@link IteratingSystem} to manage animated {@link Entity entities}. Those being
- * entities that have a {@link StateComponent}, {@link AnimationComponent} and
- * {@link TextureComponent}. This system does not manage animation time but depends on
- * the state time in the state component.
+ * entities that have a {@link StateComponent}, {@link AnimationComponent} and {@link
+ * TextureComponent}. This system does not manage animation time but depends on the state
+ * time in the state component.
  *
  * @author Matthew Crocco
  */
 public class AnimationSystem extends IteratingSystem {
 
-	private final ComponentMapper<StateComponent> stateMapper = ComponentMappers.STATE_MAPPER;
-	private final ComponentMapper<AnimationComponent> animMapper = ComponentMappers.ANIM_MAPPER;
-	private final ComponentMapper<TextureComponent> texMapper = ComponentMappers.TEX_MAPPER;
+	private final ComponentMapper<StateComponent> stateMapper = ComponentMappers
+		.STATE_MAPPER;
+	private final ComponentMapper<AnimationComponent> animMapper = ComponentMappers
+		.ANIM_MAPPER;
+	private final ComponentMapper<TextureComponent> texMapper = ComponentMappers
+		.TEX_MAPPER;
 
 	public AnimationSystem() {
 		super(Family.all(StateComponent.class, AnimationComponent.class).get());

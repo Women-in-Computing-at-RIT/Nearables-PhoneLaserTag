@@ -66,30 +66,6 @@ public enum Assets implements Asset {
 	 * {@link Asset} instance as well. The path is resolved to a {@link FileHandle} using
 	 * the provided {@link FileHandleResolver}.
 	 *
-	 * @param descriptor
-	 * 	{@link AssetDescriptor} instance for this particular Asset
-	 * @param type
-	 * 	{@link AssetType} instance most closely representing this Asset's usage
-	 * @param resolver
-	 * 	{@link FileHandleResolver} to be used to resolve the path provided by the
-	 * 	descriptor, to a file.
-	 * @param <T>
-	 * 	Asset Class Type ({@link Texture}, {@link BitmapFont}, etc.)
-	 */
-	<T> Assets(AssetDescriptor<T> descriptor, AssetType type,
-	           FileHandleResolver resolver) {
-		this.handle = descriptor.file == null ?
-		              resolver.resolve(descriptor.fileName) :
-		              descriptor.file;
-		this.descriptor = descriptor;
-		this.assetType = type;
-	}
-
-	/**
-	 * Creates an {@link Assets} instance with all the information necessary to be an
-	 * {@link Asset} instance as well. The path is resolved to a {@link FileHandle} using
-	 * the provided {@link FileHandleResolver}.
-	 *
 	 * @param path
 	 * 	Path relative to the android <tt>res</tt> directory that can be used to retrieve
 	 * 	asset
@@ -111,6 +87,30 @@ public enum Assets implements Asset {
 	           AssetType type, FileHandleResolver resolver) {
 		this(new AssetDescriptor<>(resolver.resolve(path), assetClass, parameters),
 			type, resolver);
+	}
+
+	/**
+	 * Creates an {@link Assets} instance with all the information necessary to be an
+	 * {@link Asset} instance as well. The path is resolved to a {@link FileHandle} using
+	 * the provided {@link FileHandleResolver}.
+	 *
+	 * @param descriptor
+	 * 	{@link AssetDescriptor} instance for this particular Asset
+	 * @param type
+	 * 	{@link AssetType} instance most closely representing this Asset's usage
+	 * @param resolver
+	 * 	{@link FileHandleResolver} to be used to resolve the path provided by the
+	 * 	descriptor, to a file.
+	 * @param <T>
+	 * 	Asset Class Type ({@link Texture}, {@link BitmapFont}, etc.)
+	 */
+	<T> Assets(AssetDescriptor<T> descriptor, AssetType type,
+	           FileHandleResolver resolver) {
+		this.handle = descriptor.file == null ?
+		              resolver.resolve(descriptor.fileName) :
+		              descriptor.file;
+		this.descriptor = descriptor;
+		this.assetType = type;
 	}
 
 	/**
@@ -197,11 +197,6 @@ public enum Assets implements Asset {
 		this(new AssetDescriptor<>(path, assetClass), type);
 	}
 
-	@Override
-	public String getPath() {
-		return this.handle.path();
-	}
-
 	/**
 	 * Returns an {@link ImmutableObjectSet} representing all {@link Asset assets} known
 	 * to this class.
@@ -216,6 +211,24 @@ public enum Assets implements Asset {
 			return ImmutableObjectSet.of();
 		else
 			return GdxSets.toImmutable(typeToAssets.get(type));
+	}	@Override
+	public String getPath() {
+		return this.handle.path();
+	}
+
+	/**
+	 * Returns an {@link ImmutableObjectSet} of all {@link Asset assets}, known to this
+	 * class, which have an {@link Class asset class} equal to the supplied asset class.
+	 * Subclasses are not included.
+	 *
+	 * @param assetClass
+	 * 	{@link Class} to filter for
+	 *
+	 * @return {@link ImmutableObjectSet} of assets whose asset class matches the given
+	 * asset class, not including subclasses.
+	 */
+	public static ImmutableObjectSet<Asset> getAssetOfClass(Class<?> assetClass) {
+		return getAssetsOfClass(assetClass, false);
 	}
 
 	/**
@@ -246,20 +259,7 @@ public enum Assets implements Asset {
 		return GdxSets.toImmutable(assets);
 	}
 
-	/**
-	 * Returns an {@link ImmutableObjectSet} of all {@link Asset assets}, known to this
-	 * class, which have an {@link Class asset class} equal to the supplied asset class.
-	 * Subclasses are not included.
-	 *
-	 * @param assetClass
-	 * 	{@link Class} to filter for
-	 *
-	 * @return {@link ImmutableObjectSet} of assets whose asset class matches the given
-	 * asset class, not including subclasses.
-	 */
-	public static ImmutableObjectSet<Asset> getAssetOfClass(Class<?> assetClass) {
-		return getAssetsOfClass(assetClass, false);
-	}
+
 
 	@Override
 	public Class<?> getAssetClass() {

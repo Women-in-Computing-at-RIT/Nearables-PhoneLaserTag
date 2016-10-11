@@ -156,6 +156,26 @@ public final class AssetUtils extends UtilitiesClass {
 	 *
 	 * @param manager
 	 * 	AssetManager to load assets with
+	 * @param assets
+	 * 	List of {@link Asset assets} to load
+	 * @param loadAction
+	 * 	Action after every manager update.
+	 */
+	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets,
+	                                     FloatConsumer loadAction) {
+		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor),
+			loadAction);
+	}
+
+	/**
+	 * Attempts to load all Assets according to the provided AssetDescriptors. All
+	 * descriptors are enqueued and then asynchronously loads assets using {@link
+	 * AssetManager#update()}, after each call the provided {@link FloatConsumer} is
+	 * called with the current progress of loading provided by {@link
+	 * AssetManager#getProgress()} and then yields to the CPU.
+	 *
+	 * @param manager
+	 * 	AssetManager to load assets with
 	 * @param descriptors
 	 * 	List of {@link AssetDescriptor descriptors} to load
 	 * @param loadAction
@@ -171,26 +191,6 @@ public final class AssetUtils extends UtilitiesClass {
 			loadAction.consume(manager.getProgress());
 			ThreadUtils.yield();
 		}
-	}
-
-	/**
-	 * Attempts to load all Assets according to the provided AssetDescriptors. All
-	 * descriptors are enqueued and then asynchronously loads assets using {@link
-	 * AssetManager#update()}, after each call the provided {@link FloatConsumer} is
-	 * called with the current progress of loading provided by {@link
-	 * AssetManager#getProgress()} and then yields to the CPU.
-	 *
-	 * @param manager
-	 * 	AssetManager to load assets with
-	 * @param assets
-	 * 	List of {@link Asset assets} to load
-	 * @param loadAction
-	 * 	Action after every manager update.
-	 */
-	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets,
-	                                     FloatConsumer loadAction) {
-		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor),
-			loadAction);
 	}
 
 	/**
@@ -292,7 +292,7 @@ public final class AssetUtils extends UtilitiesClass {
 
 		if (i != n)
 			throw new IllegalStateException("Could not assemble strip of " + "requested "
-				+ "size!");
+				+ "" + "size!");
 
 		return strip;
 	}

@@ -1,8 +1,8 @@
 package edu.rit.wic.lasers.assets;
 
 /**
- * General categories used to possibly organize and filter for specific types of
- * {@link Asset} instances.
+ * General categories used to possibly organize and filter for specific types of {@link
+ * Asset} instances.
  *
  * @author Matthew Crocco
  */

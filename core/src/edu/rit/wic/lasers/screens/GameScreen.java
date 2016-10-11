@@ -60,7 +60,9 @@ public class GameScreen implements Screen {
 
 		RenderingSystem renderingSystem = new RenderingSystem(this.spriteBatch);
 		renderViewportProvider = renderingSystem::getRenderViewport;
-		BackgroundSystem bgSystem = new BackgroundSystem((renderCamProvider = renderViewportProvider.get()::getCamera).get());
+		BackgroundSystem bgSystem = new BackgroundSystem((renderCamProvider =
+			renderViewportProvider
+			.get()::getCamera).get());
 
 		this.engine.addSystem(bgSystem);
 		this.engine.addSystem(new MovementSystem());
