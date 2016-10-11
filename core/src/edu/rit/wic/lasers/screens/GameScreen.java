@@ -21,6 +21,7 @@ import com.google.common.base.Supplier;
 import edu.rit.wic.lasers.LaserTagGame;
 import edu.rit.wic.lasers.assets.AssetUtils;
 import edu.rit.wic.lasers.assets.Assets;
+import edu.rit.wic.lasers.bridge.Notifier;
 import edu.rit.wic.lasers.systems.AnimationSystem;
 import edu.rit.wic.lasers.systems.BackgroundSystem;
 import edu.rit.wic.lasers.systems.MovementSystem;
@@ -75,7 +76,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-
+		this.gameInstance.notif.special(Notifier.Duration.NORMAL, "Woah! This works!");
 	}
 
 	@Override

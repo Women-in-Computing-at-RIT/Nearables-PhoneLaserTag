@@ -9,6 +9,7 @@ import com.github.czyzby.kiwi.util.gdx.collection.GdxArrays;
 
 import edu.rit.wic.lasers.assets.AssetUtils;
 import edu.rit.wic.lasers.assets.Assets;
+import edu.rit.wic.lasers.bridge.Notifier;
 import edu.rit.wic.lasers.logging.Beam;
 import edu.rit.wic.lasers.screens.GameScreen;
 import edu.rit.wic.lasers.screens.SplashScreen;
@@ -23,8 +24,15 @@ public class LaserTagGame extends Game {
 
 	/** Logging uility */
 	public final Beam logger = Beam.INSTANCE;
+	public final Notifier notif;
+
 	private SpriteBatch batch;
 	private AssetManager assetManager;
+
+	public LaserTagGame(Notifier notifier) {
+		super();
+		this.notif = notifier;
+	}
 
 	@Override
 	public void create() {

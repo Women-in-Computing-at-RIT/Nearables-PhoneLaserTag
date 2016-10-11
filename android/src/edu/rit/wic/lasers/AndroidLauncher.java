@@ -5,6 +5,8 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.orhanobut.logger.Logger;
 
+import edu.rit.wic.lasers.bridge.AndroidNotifier;
+import edu.rit.wic.lasers.bridge.Notifier;
 import edu.rit.wic.lasers.logging.AndroidDebugLightRay;
 import edu.rit.wic.lasers.logging.Beam;
 
@@ -29,6 +31,7 @@ public class AndroidLauncher extends AndroidApplication {
 		Logger.init("LaserTag").hideThreadInfo().methodCount(3).methodOffset(4);
 		Beam.INSTANCE.addRay(new AndroidDebugLightRay());
 
-		initialize(new LaserTagGame(), config);
+		Notifier notif = new AndroidNotifier(this);
+		initialize(new LaserTagGame(notif), config);
 	}
 }
