@@ -15,7 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.czyzby.kiwi.util.gdx.viewport.Viewports;
 import com.google.common.collect.MinMaxPriorityQueue;
 
-import edu.rit.wic.lasers.Ref.Rendering;
+import edu.rit.wic.lasers.Ref.Graphics;
 import edu.rit.wic.lasers.components.ComponentMappers;
 import edu.rit.wic.lasers.components.TextureComponent;
 import edu.rit.wic.lasers.components.TransformComponent;
@@ -24,7 +24,18 @@ import edu.rit.wic.lasers.logging.Beam;
 import java.util.Comparator;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * <p>
+ * {@link IteratingSystem} to handle {@link Entity entities} that can be rendered.
+ * Entities that can be rendered must have a {@link TransformComponent} for position
+ * and orientation, and a {@link TextureComponent} containing the graphics data.
+ * </p>
+ *
+ * <p>
+ *     Rendering is depth-based, thus entities are added to a Max-Heap ordered by
+ *     z-value. This is handled by {@link MinMaxPriorityQueue}.
+ * </p>
+ *
+ * @author Matthew Crocco
  */
 public class RenderingSystem extends IteratingSystem {
 
@@ -32,8 +43,10 @@ public class RenderingSystem extends IteratingSystem {
 	private final SpriteBatch spriteBatch;
 	private final MinMaxPriorityQueue<Entity> renderQueue;
 	private final Viewport renderView;
+
 	private final ComponentMapper<TextureComponent> texMapper = ComponentMappers.TEX_MAPPER;
 	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
+
 	private Comparator<Entity> comparator;
 
 	public RenderingSystem(final SpriteBatch batch) {
@@ -90,8 +103,8 @@ public class RenderingSystem extends IteratingSystem {
 			float originY = 0;
 
 			Beam.INSTANCE.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH[(%.3f, %.3f)] Scl[(%.3f, %.3f)] Rot[%.3f]", pos.x, pos.y, originX, originY, width, height, scaling.x, scaling.y, curTransform.rotation);
-			Beam.INSTANCE.v("Rendering Entity: Using Meters Per Pixel value of %f", Rendering.METERS_PER_PIXEL);
-			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY, width, height, scaling.x * Rendering.METERS_PER_PIXEL, scaling.y * Rendering.METERS_PER_PIXEL, MathUtils.radiansToDegrees * curTransform.rotation);
+			Beam.INSTANCE.v("Rendering Entity: Using Meters Per Pixel value of %f", Graphics.METERS_PER_PIXEL);
+			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY, width, height, scaling.x * Graphics.METERS_PER_PIXEL, scaling.y * Graphics.METERS_PER_PIXEL, MathUtils.radiansToDegrees * curTransform.rotation);
 
 		}
 

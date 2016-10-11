@@ -1,7 +1,14 @@
 package edu.rit.wic.lasers.functional;
 
 /**
- * Created by Matthew on 10/8/2016.
+ * <p> function that takes an int value and returns nothing. Can be applied in sequence
+ * using {@link IntConsumer#andThen(PrimitiveConsumer)}.
+ * </p>
+ * <p>
+ *     Acts exactly the same as {@link Consumer} but for int primitives.
+ * </p>
+ *
+ * @author  Matthew Crocco
  */
 public interface IntConsumer extends PrimitiveConsumer {
 

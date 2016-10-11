@@ -13,7 +13,15 @@ import edu.rit.wic.lasers.logging.Beam;
 import edu.rit.wic.lasers.screens.GameScreen;
 import edu.rit.wic.lasers.screens.SplashScreen;
 
+/**
+ *  Game launching class. Initializes necessary one-off utilities and tools
+ *  like {@link SpriteBatch} and {@link AssetManager}.
+ *
+ *  @author Matthew Crocco
+ */
 public class LaserTagGame extends Game {
+
+	/** Logging uility */
 	public final Beam logger = Beam.INSTANCE;
 	private SpriteBatch batch;
 	private AssetManager assetManager;
@@ -30,16 +38,21 @@ public class LaserTagGame extends Game {
 	}
 
 
-
 	@Override
 	public void dispose() {
 		Disposables.disposeOf(this.batch, this.assetManager);
 	}
 
+	/**
+	 * @return Game's one-and-should-be-only {@link SpriteBatch} instance.
+	 */
 	public SpriteBatch getBatch() {
 		return this.batch;
 	}
 
+	/**
+	 * @return Shared asset manager
+	 */
 	public AssetManager getAssets() {
 		return this.assetManager;
 	}

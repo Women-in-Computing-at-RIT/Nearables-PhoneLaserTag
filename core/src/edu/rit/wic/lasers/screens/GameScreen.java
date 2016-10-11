@@ -28,7 +28,9 @@ import edu.rit.wic.lasers.systems.RenderingSystem;
 import edu.rit.wic.lasers.systems.StateSystem;
 
 /**
- * Created by Matthew on 10/8/2016.
+ * Primary Game Screen where most game interaction occurs.
+ *
+ * @author Matthew Crocco
  */
 public class GameScreen implements Screen {
 

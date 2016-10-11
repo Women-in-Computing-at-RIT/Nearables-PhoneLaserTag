@@ -1,7 +1,15 @@
 package edu.rit.wic.lasers.functional;
 
+
 /**
- * Created by Matthew on 10/8/2016.
+ * <p> function that takes a float value and returns nothing. Can be applied in sequence
+ * using {@link FloatConsumer#andThen(PrimitiveConsumer)}.
+ * </p>
+ * <p>
+ *     Acts exactly the same as {@link Consumer} but for float primitives.
+ * </p>
+ *
+ * @author  Matthew Crocco
  */
 @FunctionalInterface
 public interface FloatConsumer extends PrimitiveConsumer {

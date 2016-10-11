@@ -9,7 +9,11 @@ import edu.rit.wic.lasers.components.ComponentMappers;
 import edu.rit.wic.lasers.components.StateComponent;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * {@link IteratingSystem} to handle {@link Entity entities} that have state. The
+ * system handles updating stateful time. Potentially, the system can also handle State
+ * Machine transitions. Thus the entities require {@link StateComponent}.
+ *
+ * @author Matthew Crocco
  */
 public class StateSystem extends IteratingSystem {
 

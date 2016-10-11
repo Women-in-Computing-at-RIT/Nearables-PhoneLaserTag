@@ -11,7 +11,11 @@ import edu.rit.wic.lasers.components.MovementComponent;
 import edu.rit.wic.lasers.components.TransformComponent;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * {@link IteratingSystem} to handle {@link Entity entities} that have velocity and
+ * acceleration components. Of course, this requires {@link MovementComponent} and a
+ * {@link TransformComponent}.
+ *
+ * @author Matthew Crocco
  */
 public class MovementSystem extends IteratingSystem {
 

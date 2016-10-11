@@ -3,7 +3,10 @@ package edu.rit.wic.lasers.logging;
 import com.orhanobut.logger.Logger;
 
 /**
- * Created by Matthew on 10/10/2016.
+ * {@link BeamPriority Beam Priorities} for the Android {@link LightRay} branch using
+ * {@link Logger} for pretty logging.
+ *
+ * @author Matthew Crocco
  */
 public enum AndroidBeamPriority implements BeamPriority {
 	VERBOSE(Logger.VERBOSE),

@@ -1,7 +1,10 @@
 package edu.rit.wic.lasers.assets;
 
 /**
- * Created by Matthew on 10/10/2016.
+ * General categories used to possibly organize and filter for specific types of
+ * {@link Asset} instances.
+ *
+ * @author Matthew Crocco
  */
 public enum AssetType implements com.github.czyzby.kiwi.util.gdx.asset.AssetType {
 	LANGUAGE,

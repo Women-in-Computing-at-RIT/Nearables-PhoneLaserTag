@@ -8,6 +8,11 @@ import com.orhanobut.logger.Logger;
 import edu.rit.wic.lasers.logging.AndroidDebugLightRay;
 import edu.rit.wic.lasers.logging.Beam;
 
+/**
+ * Android Launcher for Laser Tag Game
+ *
+ * @author Matthew Crocco
+ */
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -4,7 +4,10 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.github.czyzby.kiwi.util.common.UtilitiesClass;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * Containing class for all {@link ComponentMapper ComponentMappers}. One for each
+ * {@link com.badlogic.ashley.core.Component}.
+ *
+ * @author Matthew Crocco
  */
 public final class ComponentMappers extends UtilitiesClass {
 

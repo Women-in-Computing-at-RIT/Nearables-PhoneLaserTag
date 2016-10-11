@@ -12,7 +12,12 @@ import edu.rit.wic.lasers.components.StateComponent;
 import edu.rit.wic.lasers.components.TextureComponent;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * {@link IteratingSystem} to manage animated {@link Entity entities}. Those being
+ * entities that have a {@link StateComponent}, {@link AnimationComponent} and
+ * {@link TextureComponent}. This system does not manage animation time but depends on
+ * the state time in the state component.
+ *
+ * @author Matthew Crocco
  */
 public class AnimationSystem extends IteratingSystem {
 

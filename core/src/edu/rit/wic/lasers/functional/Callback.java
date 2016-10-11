@@ -1,7 +1,10 @@
 package edu.rit.wic.lasers.functional;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * Simple interface for a callback, essentially a more descriptive alternative to
+ * a {@link Runnable}.
+ *
+ * @author Matthew Crocco
  */
 @FunctionalInterface
 public interface Callback extends Runnable {

@@ -4,6 +4,10 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.utils.Pool;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * Extending interface for {@link Component} that also makes the component
+ * {@link com.badlogic.gdx.utils.Pool.Poolable}. Useful when using an
+ * {@link com.badlogic.ashley.core.PooledEngine}.
+ *
+ * @author Matthew Crocco
  */
 public interface PoolableComponent extends Pool.Poolable, Component {}

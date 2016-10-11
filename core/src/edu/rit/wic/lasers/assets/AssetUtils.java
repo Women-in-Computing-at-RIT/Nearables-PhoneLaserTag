@@ -25,17 +25,22 @@ import edu.rit.wic.lasers.functional.FloatConsumer;
 import edu.rit.wic.lasers.math.ByteMath;
 
 /**
- * Created by Matthew on 10/8/2016
+ * General utilities for dealing with {@link Asset assets}. Mostly dealing with operations
+ * using {@link AssetManager asset managers}. Some additional utilities are provided for
+ * use with {@link com.badlogic.gdx.graphics.g2d .Animation animations} and {@link Color
+ * colors}.
+ *
+ * @author Matthew Crocco
  */
 public final class AssetUtils extends UtilitiesClass {
 
-	public static final Color COLOR_BACKGROUND = AssetUtils.hex(0xFF7C1F, 1.0f);
+	public static final Color COLOR_BACKGROUND = AssetUtils.hex(0xFF7C1F, 1f);
 	public static final Color TINT_GREEN = AssetUtils.hex(0x8CFF00, 0.75f);
 
 	/**
-	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
-	 * immediately loaded in the parameter. These will be immediately available. This will also generate
-	 * all TrueType Fonts.
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are
+	 * specified to be immediately loaded in the parameter. These will be immediately
+	 * available. This will also generate all TrueType Fonts.
 	 *
 	 * @param splashTexture
 	 * 	Initial splash screen texture to load
@@ -47,9 +52,9 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
-	 * immediately loaded in the parameter. These will be immediately available. This will also generate
-	 * all TrueType Fonts.
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are
+	 * specified to be immediately loaded in the parameter. These will be immediately
+	 * available. This will also generate all TrueType Fonts.
 	 * <p>
 	 * No other assets will be loaded other than those specified.
 	 *
@@ -61,8 +66,10 @@ public final class AssetUtils extends UtilitiesClass {
 	public static AssetManager initialize(Iterable<AssetDescriptor<?>> initialAssets) {
 		AnnotationAssetManager manager = new AnnotationAssetManager();
 
-		manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()));
-		manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(new InternalFileHandleResolver()));
+		manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader
+			(new InternalFileHandleResolver()));
+		manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(new
+			InternalFileHandleResolver()));
 
 		for (AssetDescriptor<?> asset : initialAssets)
 			manager.load(asset);
@@ -75,9 +82,17 @@ public final class AssetUtils extends UtilitiesClass {
 		return manager;
 	}
 
+	/**
+	 * Loads ttf files and general bitmap fonts using FreeType.
+	 *
+	 * @param manager
+	 * 	Manager to load reuslting Bitmap Fonts with
+	 *
+	 * @deprecated Deals only with hardcoded fonts, should just use generators to
+	 * generate
+	 * fonts
+	 */
 	private static void loadttf(AssetManager manager) {
-
-
 		FreetypeFontLoader.FreeTypeFontLoaderParameter params = getParams();
 		params.fontFileName = Assets.FNT_ZEKTON_GENERATOR.getPath();
 		params.fontParameters.size = 18;
@@ -94,9 +109,9 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
-	 * immediately loaded in the parameter. These will be immediately available. This will also generate
-	 * all TrueType Fonts.
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are
+	 * specified to be immediately loaded in the parameter. These will be immediately
+	 * available. This will also generate all TrueType Fonts.
 	 *
 	 * @param splashAsset
 	 * 	Initial splash screen texture to load
@@ -108,9 +123,9 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Initialize an AssetManager, time will be spent loading whatever initial assets are specified to be
-	 * immediately loaded in the parameter. These will be immediately available. This will also generate
-	 * all TrueType Fonts.
+	 * Initialize an AssetManager, time will be spent loading whatever initial assets are
+	 * specified to be immediately loaded in the parameter. These will be immediately
+	 * available. This will also generate all TrueType Fonts.
 	 *
 	 * @param splashTexture
 	 * 	Initial splash screen texture to load
@@ -118,12 +133,13 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @return AssetManager with only the splash texture loaded
 	 */
 	public static AssetManager initialize(String splashTexture) {
-		return initialize(GdxArrays.newArray(new AssetDescriptor<>(splashTexture, Texture.class)));
+		return initialize(GdxArrays.newArray(new AssetDescriptor<>(splashTexture,
+			Texture.class)));
 	}
 
 	/**
-	 * Initialize an AssetManager, no initial assets will be loaded. This will also generate
-	 * all TrueType Fonts.
+	 * Initialize an AssetManager, no initial assets will be loaded. This will also
+	 * generate all TrueType Fonts.
 	 *
 	 * @return AssetManager with only the splash texture loaded
 	 */
@@ -132,27 +148,11 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Attempts to load all Assets according to the provided AssetDescriptors. All descriptors are enqueued and then
-	 * asynchronously loads assets using {@link AssetManager#update()}, after each call the provided {@link FloatConsumer}
-	 * is called with the current progress of loading provided by {@link AssetManager#getProgress()} and then yields to
-	 * the CPU.
-	 *
-	 * @param manager
-	 * 	AssetManager to load assets with
-	 * @param assets
-	 * 	List of {@link Asset assets} to load
-	 * @param loadAction
-	 * 	Action after every manager update.
-	 */
-	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets, FloatConsumer loadAction) {
-		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor), loadAction);
-	}
-
-	/**
-	 * Attempts to load all Assets according to the provided AssetDescriptors. All descriptors are enqueued and then
-	 * asynchronously loads assets using {@link AssetManager#update()}, after each call the provided {@link FloatConsumer}
-	 * is called with the current progress of loading provided by {@link AssetManager#getProgress()} and then yields to
-	 * the CPU.
+	 * Attempts to load all Assets according to the provided AssetDescriptors. All
+	 * descriptors are enqueued and then asynchronously loads assets using {@link
+	 * AssetManager#update()}, after each call the provided {@link FloatConsumer} is
+	 * called with the current progress of loading provided by {@link
+	 * AssetManager#getProgress()} and then yields to the CPU.
 	 *
 	 * @param manager
 	 * 	AssetManager to load assets with
@@ -161,7 +161,9 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @param loadAction
 	 * 	Action after every manager update.
 	 */
-	public static void ensureLoadAssets(AssetManager manager, Iterable<AssetDescriptor> descriptors, FloatConsumer loadAction) {
+	public static void ensureLoadAssets(AssetManager manager,
+	                                    Iterable<AssetDescriptor> descriptors,
+	                                    FloatConsumer loadAction) {
 		for (AssetDescriptor desc : descriptors)
 			manager.load(desc);
 
@@ -172,11 +174,31 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
+	 * Attempts to load all Assets according to the provided AssetDescriptors. All
+	 * descriptors are enqueued and then asynchronously loads assets using {@link
+	 * AssetManager#update()}, after each call the provided {@link FloatConsumer} is
+	 * called with the current progress of loading provided by {@link
+	 * AssetManager#getProgress()} and then yields to the CPU.
+	 *
+	 * @param manager
+	 * 	AssetManager to load assets with
+	 * @param assets
+	 * 	List of {@link Asset assets} to load
+	 * @param loadAction
+	 * 	Action after every manager update.
+	 */
+	public static void ensureLoadAssets2(AssetManager manager, Iterable<Asset> assets,
+	                                     FloatConsumer loadAction) {
+		ensureLoadAssets(manager, Iterables.transform(assets, Asset::getDescriptor),
+			loadAction);
+	}
+
+	/**
 	 * Attempts to unload the desired references. Partial completion may occur. <br />
-	 * <br />
-	 * If, according to LibGDX, there is more than one reference in the
-	 * {@link AssetManager#getReferenceCount(String) reference count} then the unloading fails. This is also
-	 * what {@link AssetManager#unload(String)} checks before unloading.
+	 * <br
+	 * /> If, according to LibGDX, there is more than one reference in the {@link
+	 * AssetManager#getReferenceCount(String) reference count} then the unloading fails.
+	 * This is also what {@link AssetManager#unload(String)} checks before unloading.
 	 *
 	 * @param manager
 	 * 	Asset Manager to unload assets from
@@ -185,7 +207,8 @@ public final class AssetUtils extends UtilitiesClass {
 	 *
 	 * @return Set of all asset names that were not freed.
 	 */
-	public static ObjectSet<String> unloadAssets(AssetManager manager, Iterable<String> assets) {
+	public static ObjectSet<String> unloadAssets(AssetManager manager,
+	                                             Iterable<String> assets) {
 
 		final ObjectSet<String> failures = GdxSets.newSet();
 
@@ -199,7 +222,9 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions})
+	 * from a
+	 * base texture.
 	 *
 	 * @param t
 	 * 	Base texture
@@ -219,12 +244,15 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @throws IllegalStateException
 	 * 	if n frames could not be grabbed
 	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height) {
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c,
+	                                                int width, int height) {
 		return getAnimationStrip(t, n, r, c, width, height, Functions.identity());
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture.
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions})
+	 * from a
+	 * base texture.
 	 *
 	 * @param t
 	 * 	Base texture
@@ -246,7 +274,10 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @throws IllegalStateException
 	 * 	if n frames could not be grabbed
 	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c, int width, int height, Function<TextureRegion, TextureRegion> frameTransform) {
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int r, int c,
+	                                                int width, int height,
+	                                                Function<TextureRegion,
+		                                                TextureRegion> frameTransform) {
 		TextureRegion[][] tiles = TextureRegion.split(t, width, height);
 		TextureRegion[] strip = new TextureRegion[n];
 
@@ -260,14 +291,16 @@ public final class AssetUtils extends UtilitiesClass {
 			}
 
 		if (i != n)
-			throw new IllegalStateException("Could not assemble strip of requested size!");
+			throw new IllegalStateException("Could not assemble strip of " + "requested "
+				+ "size!");
 
 		return strip;
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture. It is
-	 * assumed the frames start at the top left of the texture.
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions})
+	 * from a
+	 * base texture. It is assumed the frames start at the top left of the texture.
 	 *
 	 * @param t
 	 * 	Base texture
@@ -283,13 +316,15 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @throws IllegalStateException
 	 * 	if n frames could not be grabbed
 	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height) {
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width,
+	                                                int height) {
 		return getAnimationStrip(t, n, width, height, Functions.identity());
 	}
 
 	/**
-	 * Create an animation strip (an array of {@link TextureRegion TextureRegions}) from a base texture. It is
-	 * assumed the frames start at the top left of the texture.
+	 * Create an animation strip (an array of {@link TextureRegion TextureRegions})
+	 * from a
+	 * base texture. It is assumed the frames start at the top left of the texture.
 	 *
 	 * @param t
 	 * 	Base texture
@@ -307,7 +342,10 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @throws IllegalStateException
 	 * 	if n frames could not be grabbed
 	 */
-	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width, int height, Function<TextureRegion, TextureRegion> frameTransform) {
+	public static TextureRegion[] getAnimationStrip(Texture t, int n, int width,
+	                                                int height,
+	                                                Function<TextureRegion,
+		                                                TextureRegion> frameTransform) {
 		return getAnimationStrip(t, n, 0, 0, width, height, frameTransform);
 	}
 
@@ -322,13 +360,13 @@ public final class AssetUtils extends UtilitiesClass {
 	 * @return LibGDX Color represented by the hex code and alpha value
 	 */
 	public static Color hex(String hex, float alpha) {
-		return hex(Integer.parseInt(hex, 16), MathUtils.clamp(alpha, 0.0f, 1.0f));
+		return hex(Integer.parseInt(hex, 16), MathUtils.clamp(alpha, 0.0f, 1f));
 	}
 
 	/**
-	 * Takes a bit pattern representing an RGB value where the rightmost 3 bytes each represent one component. There
-	 * is some loss of precision when the RGB components are converted to a value between 0 and 1. The alpha value
-	 * is left unchanged.
+	 * Takes a bit pattern representing an RGB value where the rightmost 3 bytes each
+	 * represent one component. There is some loss of precision when the RGB components
+	 * are converted to a value between 0 and 1. The alpha value is left unchanged.
 	 *
 	 * @param hex
 	 * 	24-bit bit pattern for RGB color
@@ -364,8 +402,8 @@ public final class AssetUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Converts integer to separate rgb or rgba components (based on size). Each byte in the integer represents a
-	 * component between 0 and 255.
+	 * Converts integer to separate rgb or rgba components (based on size). Each byte in
+	 * the integer represents a component between 0 and 255.
 	 * <p>
 	 * There is a loss of precision when converted to a float between 0 and 1.
 	 *

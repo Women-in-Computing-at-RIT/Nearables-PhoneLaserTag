@@ -3,7 +3,18 @@ package edu.rit.wic.lasers.logging;
 import com.orhanobut.logger.Logger;
 
 /**
- * Created by Matthew on 10/10/2016.
+ * <p>
+ * Debug {@link LightRay} using {@link AbstractLightRay} with
+ * {@link AndroidBeamPriority} for {@link BeamPriority beam priorites} and
+ * {@link edu.rit.wic.lasers.logging.AndroidBeamPriority.Defaults AndroidBeamPriority.Defaults}
+ * {@link BeamPriorityDefaults defaults}.
+ * </p>
+ * <p>
+ *     Uses {@link Logger} for pretty logging. Debug printing includes automatically
+ *     determining Message Tag by the name of the class doing the logging.
+ * </p>
+ *
+ * @author Matthew Crocco
  */
 public class AndroidDebugLightRay extends AbstractLightRay {
 

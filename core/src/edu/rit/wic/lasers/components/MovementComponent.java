@@ -3,7 +3,13 @@ package edu.rit.wic.lasers.components;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * <p>
+ * {@link PoolableComponent Poolable component} for
+ * {@link com.badlogic.ashley.core.Entity entities} that can move. Consists of vectors
+ * for things like Velocity and Acceleration.
+ * </p>
+ *
+ * @author Matthew Crocco
  */
 public class MovementComponent implements PoolableComponent {
 

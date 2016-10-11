@@ -6,7 +6,15 @@ import com.badlogic.gdx.files.FileHandle;
 import com.github.czyzby.kiwi.util.gdx.asset.AssetType;
 
 /**
- * Created by Matthew on 10/9/2016.
+ * <p> A loadable and usable asset like a {@link com.badlogic.gdx.graphics.Texture
+ * Texture}, {@link com.badlogic.gdx.graphics.g2d.BitmapFont BitmapFont}, {@link
+ * com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator FreeType Font}, {@link
+ * com.badlogic.gdx.audio.Sound Music}, {@link com.badlogic.gdx.audio.Music Music}, etc.
+ * </p> <p> At the most basic level an Asset is represented by a path, a type (represented
+ * as a {@link Class}), and asset type. These describe an {@link AssetDescriptor} as well.
+ * </p>
+ *
+ * @author Matthew Crocco
  */
 public interface Asset {
 
@@ -19,7 +27,10 @@ public interface Asset {
 	/** @return file handle created with the assets path. */
 	FileHandle getFileHandle();
 
-	/** @return type of the asset, used by AbstractAssetManager to filter assets that need to be loaded. */
+	/**
+	 * @return type of the asset, used by AbstractAssetManager to filter assets that need
+	 * to be loaded.
+	 */
 	AssetType getAssetType();
 
 	/**
@@ -48,6 +59,9 @@ public interface Asset {
 	 */
 	<Type> Type get(Class<Type> withType, AssetManager fromManager);
 
+	/**
+	 * @return {@link AssetDescriptor} describing this particular {@link Asset}.
+	 */
 	AssetDescriptor<?> getDescriptor();
 
 }
