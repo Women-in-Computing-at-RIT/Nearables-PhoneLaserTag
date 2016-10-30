@@ -8,10 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.github.czyzby.lml.util.LmlUtilities;
 
 /**
- * Intended to just be a type alias for an {@link ImmutableArray} of {@link Actor Actors} which provides a view into
- * the {@link Array} provided by
- * {@link com.github.czyzby.lml.parser.LmlParser#parseTemplate(FileHandle) LmlParser#parseTemplate(FileHandle)} which
- * is used by {@link LmlTemplateLoader}.
+ * Intended to just be a type alias for an {@link ImmutableArray} of {@link Actor Actors} which provides a view into the
+ * {@link Array} provided by {@link com.github.czyzby.lml.parser.LmlParser#parseTemplate(FileHandle)
+ * LmlParser#parseTemplate(FileHandle)} which is used by {@link LmlTemplateLoader}.
  */
 public class LmlTemplate extends ImmutableArray<Actor> {
 

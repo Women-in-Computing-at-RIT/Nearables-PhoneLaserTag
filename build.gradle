@@ -97,7 +97,11 @@ project(":android") {
         compile "com.github.nisrulz:sensey:$senseyVersion"
         compile "com.github.percolate:caffeine:$caffeineVersion"
         compile "io.requery:requery-android:$requeryVersion" // for android
-        apt "io.requery:requery-processor:$requeryVersion"   // use an APT plugin
+        apt "io.requery:requery-processor:$requeryVersion"
+        // use an APT plugin
+
+        compile "net.sourceforge" +
+                ".streamsupport:streamsupport:$streamSupportVersion"
         compile "net.zetetic:android-database-sqlcipher:$sqlCipherVersion"
         compile "com.orhanobut:logger:$loggerVersion"
         compile("com.sdsmdg.tastytoast:tastytoast:$tastyToastVersion") {

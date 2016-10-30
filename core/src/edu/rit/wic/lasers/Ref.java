@@ -3,8 +3,8 @@ package edu.rit.wic.lasers;
 import com.github.czyzby.kiwi.util.common.UtilitiesClass;
 
 /**
- * Reference class for storing various non-string constants (string constants that are not
- * errors should be stored as i18n bundles), grouped by system.
+ * Reference class for storing various non-string constants (string constants that are not errors should be stored as
+ * i18n bundles), grouped by system.
  *
  * @author Matthew Crocco
  */

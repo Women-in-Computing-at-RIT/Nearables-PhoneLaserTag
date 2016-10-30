@@ -10,10 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Various utilities needed for {@link Beam} logging classes for manipulating Stack Traces
- * and {@link StackTraceElement StackTraceElements}. Various constants are also stored
- * here such as the maximum length of a message for logging and the call stack index of
- * callers.
+ * Various utilities needed for {@link Beam} logging classes for manipulating Stack Traces and {@link StackTraceElement
+ * StackTraceElements}. Various constants are also stored here such as the maximum length of a message for logging and
+ * the call stack index of callers.
  *
  * @author Matthew Crocco
  */
@@ -25,8 +24,7 @@ public final class LightRayUtils extends UtilitiesClass {
 	/** Index of Caller in a {@link java.lang.Throwable} stack trace */
 	public static final int CALL_STACK_INDEX = 5;
 
-	private static final Pattern PATTERN_ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)"
-		+ "+$");
+	private static final Pattern PATTERN_ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)" + "+$");
 	private static final int STACK_TRACE_SW_SIZE = 256;
 
 	/**
@@ -53,9 +51,8 @@ public final class LightRayUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Gets the Class Name from a {@link StackTraceElement} without any synthetic
-	 * components in the name like "$1" for the first inner class and so on. Will be the
-	 * Simple Name, not the Fully-Qualified Name.
+	 * Gets the Class Name from a {@link StackTraceElement} without any synthetic components in the name like "$1" for
+	 * the first inner class and so on. Will be the Simple Name, not the Fully-Qualified Name.
 	 *
 	 * @param element
 	 * 	{@link StackTraceElement} from which to get class name
@@ -72,8 +69,8 @@ public final class LightRayUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Given a class name as a string, strips away the synthetic details about inner
-	 * classes and package details. Leaving only the Class' simple name.
+	 * Given a class name as a string, strips away the synthetic details about inner classes and package details.
+	 * Leaving only the Class' simple name.
 	 *
 	 * @param className
 	 * 	Class Name as String
@@ -89,9 +86,8 @@ public final class LightRayUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Gets the Class Name from a {@link StackTraceElement} of the caller without any
-	 * synthetic components in the name like "$1" for the first inner class and so on.
-	 * Will be the Simple Name, not the Fully-Qualified Name.
+	 * Gets the Class Name from a {@link StackTraceElement} of the caller without any synthetic components in the name
+	 * like "$1" for the first inner class and so on. Will be the Simple Name, not the Fully-Qualified Name.
 	 *
 	 * @param stackTrace
 	 * 	Array {@link StackTraceElement elements} from which to get caller
@@ -106,8 +102,7 @@ public final class LightRayUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Gets the {@link StackTraceElement} representing the caller of the top-most method
-	 * in the given stack trace.
+	 * Gets the {@link StackTraceElement} representing the caller of the top-most method in the given stack trace.
 	 *
 	 * @param stackTrace
 	 * 	Array of {@link StackTraceElement elements} from which to get caller
@@ -119,8 +114,7 @@ public final class LightRayUtils extends UtilitiesClass {
 	}
 
 	/**
-	 * Gets the mth {@link StackTraceElement} representing the caller of the top-most
-	 * method in the given stack trace.
+	 * Gets the mth {@link StackTraceElement} representing the caller of the top-most method in the given stack trace.
 	 *
 	 * @param stackTrace
 	 * 	Array of {@link StackTraceElement elements} from which to get nth element
@@ -130,18 +124,15 @@ public final class LightRayUtils extends UtilitiesClass {
 	 * @throws ArrayIndexOutOfBoundsException
 	 * 	if n >= Stack Trace length
 	 */
-	public static StackTraceElement extractElement(StackTraceElement[] stackTrace,
-	                                               int n) {
-		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace "
-			+ "elements, check proguard.");
+	public static StackTraceElement extractElement(StackTraceElement[] stackTrace, int n) {
+		Preconditions.checkElementIndex(n, stackTrace.length, "Not enough stack trace " + "elements, check proguard.");
 
 		return stackTrace[n];
 	}
 
 	/**
-	 * Takes a long string and breaks it into chunks of characters then passed to a
-	 * consuming processor function. The length of the chunks are determined by {@link
-	 * #MAX_LOG_LENGTH}.
+	 * Takes a long string and breaks it into chunks of characters then passed to a consuming processor function. The
+	 * length of the chunks are determined by {@link #MAX_LOG_LENGTH}.
 	 *
 	 * @param message
 	 * 	Message String

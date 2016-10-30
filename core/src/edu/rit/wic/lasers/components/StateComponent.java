@@ -1,10 +1,9 @@
 package edu.rit.wic.lasers.components;
 
 /**
- * <p> {@link PoolableComponent Poolable component} for stateful {@link
- * com.badlogic.ashley.core.Entity entities}. Particularly useful for Animations where the
- * current time <i>for that specific entity</i> needs to be known to determine which frame
- * to display. Also maintains an integer state for use in a State Machine. </p>
+ * <p> {@link PoolableComponent Poolable component} for stateful {@link com.badlogic.ashley.core.Entity entities}.
+ * Particularly useful for Animations where the current time <i>for that specific entity</i> needs to be known to
+ * determine which frame to display. Also maintains an integer state for use in a State Machine. </p>
  *
  * @author Matthew Crocco
  */

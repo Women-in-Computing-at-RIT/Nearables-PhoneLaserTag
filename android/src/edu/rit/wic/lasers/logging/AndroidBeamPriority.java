@@ -4,8 +4,8 @@ import java8.lang.Integers;
 import com.orhanobut.logger.Logger;
 
 /**
- * {@link BeamPriority Beam Priorities} for the Android {@link LightRay} branch using
- * {@link Logger} for pretty logging.
+ * {@link BeamPriority Beam Priorities} for the Android {@link LightRay} branch using {@link Logger} for pretty
+ * logging.
  *
  * @author Matthew Crocco
  */

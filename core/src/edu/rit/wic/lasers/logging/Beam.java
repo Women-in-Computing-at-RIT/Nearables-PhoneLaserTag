@@ -9,13 +9,11 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * <p> A logging system inspired by Timber (Created by Jake Wharton). Following the same
- * theme of not being directly named, a Beam (Laser Beam) that is made up of many {@link
- * LightRay light rays}. </p> <p> Following the idiomatic Java Singleton structure, this
- * is an enum with a single instance representing the one-and-only instance of this class.
- * A LightRay can do anything from logging per-platform to logging out to an external
- * service or file, all {@link Beam} does is send out logging actions to all {@link
- * LightRay} instances registered. </p>
+ * <p> A logging system inspired by Timber (Created by Jake Wharton). Following the same theme of not being directly
+ * named, a Beam (Laser Beam) that is made up of many {@link LightRay light rays}. </p> <p> Following the idiomatic Java
+ * Singleton structure, this is an enum with a single instance representing the one-and-only instance of this class. A
+ * LightRay can do anything from logging per-platform to logging out to an external service or file, all {@link Beam}
+ * does is send out logging actions to all {@link LightRay} instances registered. </p>
  *
  * @author Matthew Crocco
  */
@@ -30,8 +28,7 @@ public enum Beam {
 	private final Array<LightRay> LIGHT_RAYS = GdxArrays.newArray(LightRay.class);
 	private volatile LightRay[] lightRaysArray = EMPTY_LIGHT_RAYS_ARRAY;
 	/**
-	 * Root {@link LightRay} instance of the logging tree. Logging actions are emitted in
-	 * a Depth-First manner.
+	 * Root {@link LightRay} instance of the logging tree. Logging actions are emitted in a Depth-First manner.
 	 */
 	private final AbstractLightRay COHERENT_BEAM = new AbstractLightRay(null) {
 
@@ -188,8 +185,7 @@ public enum Beam {
 		}
 
 		@Override
-		public void log(final BeamPriority priority, final String message,
-		                final Object... args) {
+		public void log(final BeamPriority priority, final String message, final Object... args) {
 			//noinspection ForLoopReplaceableByForEach
 			for (int i = 0; i < lightRaysArray.length; i++) {
 				lightRaysArray[i].log(priority, message, args);
@@ -197,8 +193,7 @@ public enum Beam {
 		}
 
 		@Override
-		public void log(final BeamPriority priority, final Throwable t,
-		                final String message, final Object... args) {
+		public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
 			//noinspection ForLoopReplaceableByForEach
 			for (int i = 0; i < lightRaysArray.length; i++) {
 				lightRaysArray[i].log(priority, t, message, args);
@@ -214,8 +209,7 @@ public enum Beam {
 		}
 
 		@Override
-		protected void log(final BeamPriority priority, final String tag,
-		                   final String message, final Throwable t) {
+		protected void log(final BeamPriority priority, final String tag, final String message, final Throwable t) {
 			// These should never be called, is only called if not all of the methods
 			// are properly overridden to emit to all other trees.
 			throw new AssertionError("Missing override");
@@ -227,6 +221,11 @@ public enum Beam {
 			String eType = e.getClass().getTypeName();
 			Beam.BEAM.e(e, "Uncaught Exception of type '%s' in Thread: %s:%d", eType, t.getName(), t.getId());
 		});
+	}
+
+	/** Log an error exception and a message with optional format args. */
+	public void e(Throwable t, String message, Object... args) {
+		COHERENT_BEAM.e(t, message, args);
 	}
 
 	/** Log a verbose message with optional format args. */
@@ -294,11 +293,6 @@ public enum Beam {
 		COHERENT_BEAM.e(message, args);
 	}
 
-	/** Log an error exception and a message with optional format args. */
-	public void e(Throwable t, String message, Object... args) {
-		COHERENT_BEAM.e(t, message, args);
-	}
-
 	/** Log an error exception. */
 	public void e(Throwable t) {
 		COHERENT_BEAM.e(t);
@@ -335,8 +329,8 @@ public enum Beam {
 	}
 
 	/**
-	 * A view into Timber's planted LightRays as a LightRay itself. This can be used for
-	 * injecting a logger instance rather than using methods or to facilitate testing.
+	 * A view into Timber's planted LightRays as a LightRay itself. This can be used for injecting a logger instance
+	 * rather than using methods or to facilitate testing.
 	 */
 	public LightRay asLightRay() {
 		return COHERENT_BEAM;
@@ -353,9 +347,7 @@ public enum Beam {
 	}
 
 	/**
-	 * Adds a {@link LightRay} to the beam. Any logging actions will be sent to the
-	 * ray as
-	 * well.
+	 * Adds a {@link LightRay} to the beam. Any logging actions will be sent to the ray as well.
 	 *
 	 * @param ray
 	 * 	{@link LightRay} to add
@@ -367,8 +359,7 @@ public enum Beam {
 	 */
 	public void addRay(LightRay ray) {
 		ray = Preconditions.checkNotNull(ray);
-		Preconditions.checkArgument(ray != COHERENT_BEAM, "Beams inside beams are not "
-			+ "allowed!");
+		Preconditions.checkArgument(ray != COHERENT_BEAM, "Beams inside beams are not " + "allowed!");
 
 		lightRayLock.lock();
 		try {
@@ -380,8 +371,7 @@ public enum Beam {
 	}
 
 	/**
-	 * Adds {@link LightRay LightRays} to the beam. Any logging actions will be sent to
-	 * the rays as well.
+	 * Adds {@link LightRay LightRays} to the beam. Any logging actions will be sent to the rays as well.
 	 *
 	 * @param rays
 	 * 	All {@link LightRay LightRays} to add
@@ -396,8 +386,7 @@ public enum Beam {
 
 		for (LightRay ray : rays) {
 			Preconditions.checkNotNull(ray, "No null LightRays allowed");
-			Preconditions.checkArgument(ray != COHERENT_BEAM, "Beams inside beams are "
-				+ "not allowed!");
+			Preconditions.checkArgument(ray != COHERENT_BEAM, "Beams inside beams are " + "not allowed!");
 		}
 
 		lightRayLock.lock();
@@ -410,8 +399,7 @@ public enum Beam {
 	}
 
 	/**
-	 * Removes a {@link LightRay} from the beam. No more logging actions will be sent to
-	 * that LightRay from this Beam.
+	 * Removes a {@link LightRay} from the beam. No more logging actions will be sent to that LightRay from this Beam.
 	 *
 	 * @param ray
 	 * 	{@link LightRay} to remove
@@ -426,8 +414,8 @@ public enum Beam {
 
 		lightRayLock.lock();
 		try {
-			Preconditions.checkArgument(LIGHT_RAYS.removeValue(ray, true), "Cannot "
-				+ "remove LightRay that has not been added: " + String
+			Preconditions.checkArgument(LIGHT_RAYS.removeValue(ray, true), "Cannot " + "remove LightRay that has not "
+				+ "been added: " + String
 				.valueOf(ray));
 			lightRaysArray = LIGHT_RAYS.toArray();
 		} finally {
@@ -449,13 +437,10 @@ public enum Beam {
 	}
 
 	/**
-	 * Returns an {@link ImmutableArray} representing EVERY {@link LightRay} added to
-	 * this
-	 * {@link Beam}. Should only be iterated over, modify LightRay instances at your own
-	 * risk.
+	 * Returns an {@link ImmutableArray} representing EVERY {@link LightRay} added to this {@link Beam}. Should only be
+	 * iterated over, modify LightRay instances at your own risk.
 	 *
-	 * @return {@link ImmutableArray} of {@link LightRay LightRays} known by this {@link
-	 * Beam}
+	 * @return {@link ImmutableArray} of {@link LightRay LightRays} known by this {@link Beam}
 	 */
 	public Iterable<LightRay> getBeam() {
 		lightRayLock.lock();

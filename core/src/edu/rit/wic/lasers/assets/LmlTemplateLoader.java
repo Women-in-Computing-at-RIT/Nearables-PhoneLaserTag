@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.Array;
 import com.github.czyzby.lml.parser.LmlParser;
 
 /**
- * Loads an {@link LmlTemplate} using a provided {@link LmlParser} from the given file if possible. The actual result
- * is an {@link Array} of {@link Actor} but LmlTemplate wraps this raw array a little nicer and is also encapsulating
- * the given Array as an {@link com.badlogic.ashley.utils.ImmutableArray ImmutableArray}.
+ * Loads an {@link LmlTemplate} using a provided {@link LmlParser} from the given file if possible. The actual result is
+ * an {@link Array} of {@link Actor} but LmlTemplate wraps this raw array a little nicer and is also encapsulating the
+ * given Array as an {@link com.badlogic.ashley.utils.ImmutableArray ImmutableArray}.
  *
  * @author Matthew Crocco
  */
@@ -21,22 +21,21 @@ public class LmlTemplateLoader extends SynchronousAssetLoader<LmlTemplate, LmlTe
 
 	private final LmlParser parser;
 
+	public LmlTemplateLoader(final LmlParser parser) {
+		this(new InternalFileHandleResolver(), parser);
+	}
+
 	public LmlTemplateLoader(final FileHandleResolver resolver, final LmlParser parser) {
 		super(resolver);
 		this.parser = parser;
 	}
 
-	public LmlTemplateLoader(final LmlParser parser) {
-		this(new InternalFileHandleResolver(), parser);
-	}
-
 	@Override
-	public LmlTemplate load(final AssetManager assetManager, final String fileName,
-	                        final FileHandle file, final LmlTemplateParameter
-		                            parameter) {
+	public LmlTemplate load(final AssetManager assetManager, final String fileName, final FileHandle file,
+	                        final LmlTemplateParameter parameter) {
 		final Array<Actor> templateAsArray;
 
-		if(file != null && file.exists())
+		if (file != null && file.exists())
 			templateAsArray = this.parser.parseTemplate(file);
 		else
 			templateAsArray = this.parser.parseTemplate(this.resolve(fileName));
@@ -45,8 +44,7 @@ public class LmlTemplateLoader extends SynchronousAssetLoader<LmlTemplate, LmlTe
 	}
 
 	@Override
-	public Array<AssetDescriptor> getDependencies(final String fileName,
-	                                              final FileHandle file,
+	public Array<AssetDescriptor> getDependencies(final String fileName, final FileHandle file,
 	                                              final LmlTemplateParameter parameter) {
 		return null;
 	}

@@ -11,9 +11,8 @@ import edu.rit.wic.lasers.components.MovementComponent;
 import edu.rit.wic.lasers.components.TransformComponent;
 
 /**
- * {@link IteratingSystem} to handle {@link Entity entities} that have velocity and
- * acceleration components. Of course, this requires {@link MovementComponent} and a
- * {@link TransformComponent}.
+ * {@link IteratingSystem} to handle {@link Entity entities} that have velocity and acceleration components. Of course,
+ * this requires {@link MovementComponent} and a {@link TransformComponent}.
  *
  * @author Matthew Crocco
  */
@@ -21,10 +20,8 @@ public class MovementSystem extends IteratingSystem {
 
 	private final Vector2 tmp = new Vector2();
 
-	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers
-		.TRANSFORM_MAPPER;
-	private final ComponentMapper<MovementComponent> mvmtMapper = ComponentMappers
-		.MOVEMENT_MAPPER;
+	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
+	private final ComponentMapper<MovementComponent> mvmtMapper = ComponentMappers.MOVEMENT_MAPPER;
 
 	public MovementSystem() {
 		super(Family.all(TransformComponent.class, MovementComponent.class).get());

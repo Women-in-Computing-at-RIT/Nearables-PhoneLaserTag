@@ -1,9 +1,9 @@
 package edu.rit.wic.lasers.functional;
 
 /**
- * <p> function that takes an int value and returns nothing. Can be applied in sequence
- * using {@link IntConsumer#andThen(PrimitiveConsumer)}. </p> <p> Acts exactly the same as
- * {@link java8.util.function.Consumer} but for int primitives. </p>
+ * <p> function that takes an int value and returns nothing. Can be applied in sequence using {@link
+ * IntConsumer#andThen(PrimitiveConsumer)}. </p> <p> Acts exactly the same as {@link java8.util.function.Consumer} but
+ * for int primitives. </p>
  *
  * @author Matthew Crocco
  */

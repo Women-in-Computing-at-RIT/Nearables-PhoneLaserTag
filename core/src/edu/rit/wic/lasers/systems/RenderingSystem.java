@@ -25,12 +25,10 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
- * <p> {@link IteratingSystem} to handle {@link Entity entities} that can be rendered.
- * Entities that can be rendered must have a {@link TransformComponent} for position and
- * orientation, and a {@link TextureComponent} containing the graphics data. </p>
- * <p>
- * <p> Rendering is depth-based, thus entities are added to a Max-Heap ordered by z-value.
- * This is handled by {@link PriorityQueue}. </p>
+ * <p> {@link IteratingSystem} to handle {@link Entity entities} that can be rendered. Entities that can be rendered
+ * must have a {@link TransformComponent} for position and orientation, and a {@link TextureComponent} containing the
+ * graphics data. </p> <p> <p> Rendering is depth-based, thus entities are added to a Max-Heap ordered by z-value. This
+ * is handled by {@link PriorityQueue}. </p>
  *
  * @author Matthew Crocco
  */
@@ -89,8 +87,7 @@ public class RenderingSystem extends IteratingSystem {
 			//
 			// This is why we can't have nice things.
 			if (curTex.texture == null) {
-				Beam.BEAM.v("Rendering Entity: Attempt to render entity with no "
-					+ "texture in texture component!");
+				Beam.BEAM.v("Rendering Entity: Attempt to render entity with no " + "texture in texture component!");
 				continue;
 			}
 
@@ -105,11 +102,10 @@ public class RenderingSystem extends IteratingSystem {
 			float originX = 0;
 			float originY = 0;
 
-			Beam.BEAM.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH["
-				+ "(%.3f, %.3f)] Scl[(%.3f, %.3f)] Rot[%.3f]", pos.x, pos.y, originX,
-				originY, width, height, scaling.x, scaling.y, curTransform.rotation);
-			Beam.BEAM.v("Rendering Entity: Using Meters Per Pixel value of %f",
-				Graphics.METERS_PER_PIXEL);
+			Beam.BEAM.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH[" + "(%.3f, %.3f)] Scl[(%.3f, %"
+				+ ".3f)] Rot[%.3f]", pos.x, pos.y, originX, originY, width, height, scaling.x, scaling.y, curTransform
+				.rotation);
+			Beam.BEAM.v("Rendering Entity: Using Meters Per Pixel value of %f", Graphics.METERS_PER_PIXEL);
 
 			// Let M2P = Meters Per Pixel Constant
 			// Position = (x, y) = (entX - originX, entY - originY)
@@ -118,10 +114,9 @@ public class RenderingSystem extends IteratingSystem {
 			// height = Height of Texture
 			// Scale = (x, y) = (entScaleX * M2P, entScaleY * M2P)
 			// angle = Rotation of texture relative to origin
-			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY,
-				width, height, scaling.x * Graphics.METERS_PER_PIXEL, scaling.y *
-					Graphics.METERS_PER_PIXEL, MathUtils.radiansToDegrees * curTransform
-					.rotation);
+			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY, width, height, scaling.x *
+				Graphics.METERS_PER_PIXEL, scaling.y * Graphics.METERS_PER_PIXEL, MathUtils.radiansToDegrees *
+				curTransform.rotation);
 
 		}
 

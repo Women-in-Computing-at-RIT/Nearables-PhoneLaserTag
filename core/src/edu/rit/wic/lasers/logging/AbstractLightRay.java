@@ -115,14 +115,12 @@ public abstract class AbstractLightRay implements LightRay {
 	}
 
 	@Override
-	public void log(final BeamPriority priority, final String message,
-	                final Object... args) {
+	public void log(final BeamPriority priority, final String message, final Object... args) {
 		prepareLog(priority, null, message, args);
 	}
 
 	@Override
-	public void log(final BeamPriority priority, final Throwable t, final String message,
-	                final Object... args) {
+	public void log(final BeamPriority priority, final Throwable t, final String message, final Object... args) {
 		prepareLog(priority, t, message, args);
 	}
 
@@ -140,8 +138,7 @@ public abstract class AbstractLightRay implements LightRay {
 		return message == null || message.isEmpty();
 	}
 
-	private void prepareLog(BeamPriority priority, Throwable t, String message,
-	                        Object... args) {
+	private void prepareLog(BeamPriority priority, Throwable t, String message, Object... args) {
 		String tag = getTag();
 
 		if (!isLoggable(tag, priority))
@@ -160,7 +157,6 @@ public abstract class AbstractLightRay implements LightRay {
 		this.log(priority, tag, message, t);
 	}
 
-	protected abstract void log(BeamPriority priority, String tag, String message,
-	                            Throwable t);
+	protected abstract void log(BeamPriority priority, String tag, String message, Throwable t);
 
 }

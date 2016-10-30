@@ -1,12 +1,9 @@
 package edu.rit.wic.lasers.logging;
 
 /**
- * <p> A {@link LightRay} describes an interface for logging at 5 basic levels: <ul>
- * <li>VERBOSE</li> <li>DEBUG</li> <li>INFO</li> <li>WARN</li> <li>ERROR</li> <li>WTF</li>
- * </ul>
- * <p>
- * with an option of specifying a way to tell if a particular message is loggable baed on
- * Tag, {@link BeamPriority} or both or neither. </p>
+ * <p> A {@link LightRay} describes an interface for logging at 5 basic levels: <ul> <li>VERBOSE</li> <li>DEBUG</li>
+ * <li>INFO</li> <li>WARN</li> <li>ERROR</li> <li>WTF</li> </ul> <p> with an option of specifying a way to tell if a
+ * particular message is loggable baed on Tag, {@link BeamPriority} or both or neither. </p>
  *
  * @author Matthew Crocco
  */
@@ -237,8 +234,9 @@ public interface LightRay {
 	void log(BeamPriority priority, Throwable t);
 
 	/**
-	 * Determines if a message is loggable based on the message tag or the message {@link
-	 * BeamPriority priority} or both or neither.
+	 * Determines if a message is loggable based on the message tag or the message {@link BeamPriority priority} or
+	 * both
+	 * or neither.
 	 *
 	 * @param tag
 	 * 	Message tag

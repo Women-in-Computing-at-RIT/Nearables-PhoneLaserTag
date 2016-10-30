@@ -4,12 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.IntMap;
 
 /**
- * <p> {@link PoolableComponent Poolable component} allowing use of an {@link
- * com.badlogic.ashley.core.Entity} in an Animation system. Consists of an {@link IntMap}
- * to {@link Animation Animations}. </p>
- * <p>
- * <p> This is intended to be used with enumerated integers represnting each animation,
- * then mapping these integer keys to the respective animations. </p>
+ * <p> {@link PoolableComponent Poolable component} allowing use of an {@link com.badlogic.ashley.core.Entity} in an
+ * Animation system. Consists of an {@link IntMap} to {@link Animation Animations}. </p> <p> <p> This is intended to be
+ * used with enumerated integers represnting each animation, then mapping these integer keys to the respective
+ * animations. </p>
  *
  * @author Matthew Crocco
  */

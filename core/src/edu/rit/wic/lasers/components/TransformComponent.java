@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 /**
- * <p> {@link PoolableComponent Poolable component} for position, scale and orientation of
- * an {@link com.badlogic.ashley.core.Entity} within the game world. </p>
+ * <p> {@link PoolableComponent Poolable component} for position, scale and orientation of an {@link
+ * com.badlogic.ashley.core.Entity} within the game world. </p>
  *
  * @author Matthew Crocco
  */

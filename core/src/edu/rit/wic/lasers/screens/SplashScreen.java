@@ -19,14 +19,13 @@ import edu.rit.wic.lasers.functional.Callback;
 import edu.rit.wic.lasers.systems.RenderingSystem;
 
 /**
- * <p> Intermediate SplashScreen to load assets before transitioning into another {@link
- * com.badlogic.gdx.Screen} instance. The requested {@link Asset assets} are queued to be
- * loaded by the game's {@link com.badlogic.gdx.assets.AssetManager AssetManager}. The
- * screen is also given a minimum time to display in case loading finishes early, so that
- * the branding is shown at least for some time. </p> <p> While rendering and shown the
- * {@link com.badlogic.gdx.assets.AssetManager manager} is updated each frame. If the
- * manager indicates loading is finished the game will transition to the next screen if
- * and only if the minimum display time specified has elapsed. </p>
+ * <p> Intermediate SplashScreen to load assets before transitioning into another {@link com.badlogic.gdx.Screen}
+ * instance. The requested {@link Asset assets} are queued to be loaded by the game's {@link
+ * com.badlogic.gdx.assets.AssetManager AssetManager}. The screen is also given a minimum time to display in case
+ * loading finishes early, so that the branding is shown at least for some time. </p> <p> While rendering and shown the
+ * {@link com.badlogic.gdx.assets.AssetManager manager} is updated each frame. If the manager indicates loading is
+ * finished the game will transition to the next screen if and only if the minimum display time specified has elapsed.
+ * </p>
  *
  * @author Matthew Crocco
  */
@@ -42,9 +41,8 @@ public class SplashScreen extends ScreenAdapter {
 	private float pausedDelta = 0;
 
 	/**
-	 * Creates a Splash Screen using the given {@link Asset} as the image to display. The
-	 * given {@link Iterable} of {@link Asset assets} are then loaded into the games
-	 * {@link com.badlogic.gdx.assets.AssetManager} to be loaded.
+	 * Creates a Splash Screen using the given {@link Asset} as the image to display. The given {@link Iterable} of
+	 * {@link Asset assets} are then loaded into the games {@link com.badlogic.gdx.assets.AssetManager} to be loaded.
 	 *
 	 * @param game
 	 * 	{@link LaserTagGame} instance
@@ -58,12 +56,10 @@ public class SplashScreen extends ScreenAdapter {
 	 * 	Minimum time to display splash screen in seconds
 	 *
 	 * @throws IllegalArgumentException
-	 * 	If the given {@link Asset} to display is not a {@link AssetType#GRAPHICS
-	 * 	graphical
-	 * 	asset} nor {@link Texture} containing.
+	 * 	If the given {@link Asset} to display is not a {@link AssetType#GRAPHICS graphical asset} nor {@link Texture}
+	 * 	containing.
 	 */
-	public SplashScreen(final LaserTagGame game, final Asset image,
-	                    Iterable<Asset> forLoading, Callback onComplete,
+	public SplashScreen(final LaserTagGame game, final Asset image, Iterable<Asset> forLoading, Callback onComplete,
 	                    float minSeconds) {
 		checkArgument(isGraphicalAsset(image), "SplashScreen expects Texture Asset!");
 
@@ -71,16 +67,12 @@ public class SplashScreen extends ScreenAdapter {
 		this.minDisplayTime = minSeconds;
 
 		this.game.logger.tag("SPLASH");
-		this.game.logger.i("Displaying splash screen for at least ~%.2f seconds",
-			minSeconds);
-		this.game.logger.i("SplashScreen Asset: '%s' of type '%s'", image.getPath(),
-			image
-			.getAssetType());
+		this.game.logger.i("Displaying splash screen for at least ~%.2f seconds", minSeconds);
+		this.game.logger.i("SplashScreen Asset: '%s' of type '%s'", image.getPath(), image.getAssetType());
 
 		TransformComponent splashTransform = new TransformComponent();
 		TextureComponent splashTextureComp = new TextureComponent();
-		splashTextureComp.texture = new TextureRegion((Texture) image.get(game.getAssets
-			()));
+		splashTextureComp.texture = new TextureRegion((Texture) image.get(game.getAssets()));
 
 		float width = splashTextureComp.texture.getTexture().getWidth();
 		float height = splashTextureComp.texture.getTexture().getHeight();
@@ -89,8 +81,7 @@ public class SplashScreen extends ScreenAdapter {
 		splashEntity.add(splashTextureComp);
 		splashEntity.add(splashTransform);
 
-		engine.addSystem(new RenderingSystem(this.game.getBatch(), new StretchViewport
-			(width, height)));
+		engine.addSystem(new RenderingSystem(this.game.getBatch(), new StretchViewport(width, height)));
 		engine.addEntity(splashEntity);
 
 		for (Asset asset : forLoading) {
@@ -105,13 +96,11 @@ public class SplashScreen extends ScreenAdapter {
 	 * @param asset
 	 * 	{@link Asset} to check
 	 *
-	 * @return True if and only if the asset is a {@link AssetType#GRAPHICS graphical
-	 * asset} and the asset class is a subclass of {@link Texture}
+	 * @return True if and only if the asset is a {@link AssetType#GRAPHICS graphical asset} and the asset class is a
+	 * subclass of {@link Texture}
 	 */
 	private boolean isGraphicalAsset(Asset asset) {
-		return asset.getAssetType() == AssetType.GRAPHICS && Texture.class
-			.isAssignableFrom(asset
-			.getAssetClass());
+		return asset.getAssetType() == AssetType.GRAPHICS && Texture.class.isAssignableFrom(asset.getAssetClass());
 	}
 
 	@Override
@@ -124,13 +113,12 @@ public class SplashScreen extends ScreenAdapter {
 			this.transition.call();
 		} else if (!this.game.getAssets().update()) {
 			float progress = this.game.getAssets().getProgress();
-			this.game.logger.i("SplashScreen Loading: %d%% of the way done.", (int)
-				(progress * 100));
+			this.game.logger.i("SplashScreen Loading: %d%% of the way done.", (int) (progress * 100));
 		}
 
 		elapsedTime += delta - pausedDelta;
-		this.game.logger.v("SplashScreen Loading: minTime: Min Time: %.3f, Elapsed: %"
-			+ ".3f, pauseTime: %.3f", minDisplayTime, elapsedTime, pausedDelta);
+		this.game.logger.v("SplashScreen Loading: minTime: Min Time: %.3f, Elapsed: %" + ".3f, pauseTime: %.3f",
+			minDisplayTime, elapsedTime, pausedDelta);
 		pausedDelta = 0;
 	}
 

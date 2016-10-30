@@ -26,8 +26,8 @@ import edu.rit.wic.lasers.screens.GameScreen;
 import edu.rit.wic.lasers.screens.SplashScreen;
 
 /**
- * Game launching class. Initializes necessary one-off utilities and tools like {@link
- * SpriteBatch} and {@link AssetManager}.
+ * Game launching class. Initializes necessary one-off utilities and tools like {@link SpriteBatch} and {@link
+ * AssetManager}.
  *
  * @author Matthew Crocco
  */
@@ -55,17 +55,15 @@ public class LaserTagGame extends Game {
 
 		Beam.interceptUncaughtExceptions();
 
-		LmlParser parser = new LmlParserBuilder()
-			.i18nBundle(Assets.I18N_APP_BUNDLE.get(I18NBundle.class, this.assetManager))
-			.debugLinesOnException(5)
-			.build();
+		LmlParser parser = new LmlParserBuilder().i18nBundle(Assets.I18N_APP_BUNDLE.get(I18NBundle.class, this
+			.assetManager)).debugLinesOnException(5).build();
 		this.assetManager.setLoader(LmlTemplate.class, ".lml", new LmlTemplateLoader(parser));
 
 		this.logger.i("Initial assets loaded and ready! Moving to SplashScreen...");
 
 		Texture.setAssetManager(this.assetManager);
-		setScreen(new SplashScreen(this, Assets.SPLASH_IMAGE, GdxArrays.newArray(), ()
-			-> setScreen(new GameScreen(this)), 5));
+		setScreen(new SplashScreen(this, Assets.SPLASH_IMAGE, GdxArrays.newArray(), () -> setScreen(new GameScreen
+			(this)), 5));
 	}
 
 
@@ -88,14 +86,14 @@ public class LaserTagGame extends Game {
 		return this.assetManager;
 	}
 
-	public void setUi(final Camera camera) {
-		Viewport view = new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(),
-			Gdx.graphics.getHeight(), camera);
-		this.ui = new Stage(view, this.batch);
-	}
-
 	public Stage getUi() {
 		return this.ui;
+	}
+
+	public void setUi(final Camera camera) {
+		Viewport view = new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(),
+			camera);
+		this.ui = new Stage(view, this.batch);
 	}
 
 	public void drawUi(final float delta) {
