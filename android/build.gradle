@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "wic.rit.edu.lasers"
+        applicationId "edu.rit.wic.lasers"
         multiDexEnabled = true
         minSdkVersion 14
         targetSdkVersion 23
@@ -72,7 +72,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'wic.rit.edu/wic.rit.edu.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'edu.rit.wic.lasers/edu.rit.wic.lasers.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.
