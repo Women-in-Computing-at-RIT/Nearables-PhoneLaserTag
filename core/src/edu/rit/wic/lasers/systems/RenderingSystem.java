@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.github.czyzby.kiwi.util.gdx.viewport.Viewports;
-import com.google.common.collect.MinMaxPriorityQueue;
 
 import edu.rit.wic.lasers.Ref.Graphics;
 import edu.rit.wic.lasers.components.ComponentMappers;
@@ -22,6 +21,8 @@ import edu.rit.wic.lasers.components.TransformComponent;
 import edu.rit.wic.lasers.logging.Beam;
 
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * <p> {@link IteratingSystem} to handle {@link Entity entities} that can be rendered.
@@ -29,23 +30,24 @@ import java.util.Comparator;
  * orientation, and a {@link TextureComponent} containing the graphics data. </p>
  * <p>
  * <p> Rendering is depth-based, thus entities are added to a Max-Heap ordered by z-value.
- * This is handled by {@link MinMaxPriorityQueue}. </p>
+ * This is handled by {@link PriorityQueue}. </p>
  *
  * @author Matthew Crocco
  */
 public class RenderingSystem extends IteratingSystem {
 
+	private static final ComponentMapper<TextureComponent> texMapper = ComponentMappers.TEX_MAPPER;
+	private static final ComponentMapper<TransformComponent> transformMapper = ComponentMappers.TRANSFORM_MAPPER;
+	private static final Comparator<Entity> renderComparator = (entA, entB) -> {
+		TransformComponent transformA = transformMapper.get(entA);
+		TransformComponent transformB = transformMapper.get(entB);
+
+		return Float.compare(transformB.position.z, transformA.position.z);
+	};
 
 	private final SpriteBatch spriteBatch;
-	private final MinMaxPriorityQueue<Entity> renderQueue;
+	private final Queue<Entity> renderQueue;
 	private final Viewport renderView;
-
-	private final ComponentMapper<TextureComponent> texMapper = ComponentMappers
-		.TEX_MAPPER;
-	private final ComponentMapper<TransformComponent> transformMapper = ComponentMappers
-		.TRANSFORM_MAPPER;
-
-	private Comparator<Entity> comparator;
 
 	public RenderingSystem(final SpriteBatch batch) {
 		this(batch, Viewports.getDensityAwareViewport());
@@ -57,19 +59,9 @@ public class RenderingSystem extends IteratingSystem {
 		this.spriteBatch = batch;
 		this.renderView = viewport;
 
-		Beam.BEAM.v("Rendering using '%s' viewport", this.renderView.getClass()
-		                                                            .getName());
+		Beam.BEAM.v("Rendering using '%s' viewport", this.renderView.getClass().getName());
 
-		this.comparator = (entA, entB) -> {
-			TransformComponent transformA = transformMapper.get(entA);
-			TransformComponent transformB = transformMapper.get(entB);
-
-			return Float.compare(transformB.position.z, transformA.position.z);
-		};
-
-		this.renderQueue = MinMaxPriorityQueue.orderedBy(this.comparator)
-		                                      .expectedSize(20)
-		                                      .create();
+		this.renderQueue = new PriorityQueue<>(20, renderComparator);
 	}
 
 	@Override
@@ -82,11 +74,20 @@ public class RenderingSystem extends IteratingSystem {
 		this.spriteBatch.setProjectionMatrix(renderCam.combined);
 		this.spriteBatch.begin();
 
+		// Process all jobs in render queue.
+		//
+		// The render queue is a PriorityQueue which is a Max Heap. Therefore
+		// all background elements are rendered first since BackgroundComponents
+		// (if updated by a Background System) have a large positive Z-value.
 		while (!renderQueue.isEmpty()) {
-			Entity current = renderQueue.removeLast();
+			Entity current = renderQueue.remove();
 
 			TextureComponent curTex = texMapper.get(current);
 
+			// Something has probably gone PRETTY wrong if there is no texture
+			// to render... but prevents foul play from destroying everything.
+			//
+			// This is why we can't have nice things.
 			if (curTex.texture == null) {
 				Beam.BEAM.v("Rendering Entity: Attempt to render entity with no "
 					+ "texture in texture component!");
@@ -109,6 +110,14 @@ public class RenderingSystem extends IteratingSystem {
 				originY, width, height, scaling.x, scaling.y, curTransform.rotation);
 			Beam.BEAM.v("Rendering Entity: Using Meters Per Pixel value of %f",
 				Graphics.METERS_PER_PIXEL);
+
+			// Let M2P = Meters Per Pixel Constant
+			// Position = (x, y) = (entX - originX, entY - originY)
+			// Origin (Texture Coords) = (x, y) = (originX, originY)
+			// width = Width of Texture
+			// height = Height of Texture
+			// Scale = (x, y) = (entScaleX * M2P, entScaleY * M2P)
+			// angle = Rotation of texture relative to origin
 			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY,
 				width, height, scaling.x * Graphics.METERS_PER_PIXEL, scaling.y *
 					Graphics.METERS_PER_PIXEL, MathUtils.radiansToDegrees * curTransform

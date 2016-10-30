@@ -222,6 +222,13 @@ public enum Beam {
 		}
 	};
 
+	public static void interceptUncaughtExceptions() {
+		Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+			String eType = e.getClass().getTypeName();
+			Beam.BEAM.e(e, "Uncaught Exception of type '%s' in Thread: %s:%d", eType, t.getName(), t.getId());
+		});
+	}
+
 	/** Log a verbose message with optional format args. */
 	public void v(String message, Object... args) {
 		COHERENT_BEAM.v(message, args);

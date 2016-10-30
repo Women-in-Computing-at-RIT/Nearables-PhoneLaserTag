@@ -89,9 +89,9 @@ public final class AssetUtils extends UtilitiesClass {
 	 * 	Manager to load reuslting Bitmap Fonts with
 	 *
 	 * @deprecated Deals only with hardcoded fonts, should just use generators to
-	 * generate
-	 * fonts
+	 * generate fonts
 	 */
+	@Deprecated
 	private static void loadttf(AssetManager manager) {
 		FreetypeFontLoader.FreeTypeFontLoaderParameter params = getParams();
 		params.fontFileName = Assets.FNT_ZEKTON_GENERATOR.getPath();

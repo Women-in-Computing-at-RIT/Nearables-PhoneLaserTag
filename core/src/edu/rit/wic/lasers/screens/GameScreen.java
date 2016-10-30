@@ -62,8 +62,7 @@ public class GameScreen implements Screen {
 		RenderingSystem renderingSystem = new RenderingSystem(this.spriteBatch);
 		renderViewportProvider = renderingSystem::getRenderViewport;
 		BackgroundSystem bgSystem = new BackgroundSystem((renderCamProvider =
-			renderViewportProvider
-			.get()::getCamera).get());
+			renderViewportProvider.get()::getCamera).get());
 
 		this.engine.addSystem(bgSystem);
 		this.engine.addSystem(new MovementSystem());
@@ -76,7 +75,8 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		this.gameInstance.notif.special(Notifier.DurationHint.NORMAL, "Woah! This works!");
+		this.gameInstance.notifier.special(Notifier.DurationHint.NORMAL, "Woah! This works!");
+		this.gameInstance.setUi(renderCamProvider.get());
 	}
 
 	@Override
@@ -87,6 +87,7 @@ public class GameScreen implements Screen {
 		this.engine.update(delta);
 		this.guiStage.act(delta);
 		this.guiStage.draw();
+		this.gameInstance.drawUi(delta);
 	}
 
 	@Override
