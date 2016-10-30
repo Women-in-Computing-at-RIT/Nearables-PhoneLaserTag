@@ -27,6 +27,8 @@ import com.github.czyzby.kiwi.util.gdx.collection.immutable.ImmutableObjectSet;
  */
 public enum Assets implements Asset {
 
+	IN_GAME_HUD_TEMPLATE("templates/lml/InGameHud.lml", LmlTemplate.class, AssetType.UI),
+
 	SPLASH_IMAGE("badlogic.jpg", Texture.class, AssetType.GRAPHICS),
 
 	FNT_ZEKTON_GENERATOR("fonts/zekton.ttf", FreeTypeFontGenerator.class, FONT_GENERATOR),
