@@ -29,7 +29,7 @@ public class AndroidLauncher extends AndroidApplication {
 		config.useGLSurfaceView20API18 = true;
 
 		Logger.init("LaserTag").hideThreadInfo().methodCount(3).methodOffset(4);
-		Beam.INSTANCE.addRay(new AndroidDebugLightRay());
+		Beam.BEAM.addRay(new AndroidDebugLightRay());
 
 		Notifier notif = new AndroidNotifier(this);
 		initialize(new LaserTagGame(notif), config);

@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public enum Beam {
 
-	INSTANCE;
+	BEAM;
 
 	/** Concurrency Lock for updating LIGHT_RAYS */
 	private final Lock lightRayLock = new ReentrantLock();

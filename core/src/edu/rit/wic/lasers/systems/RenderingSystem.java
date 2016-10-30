@@ -57,8 +57,8 @@ public class RenderingSystem extends IteratingSystem {
 		this.spriteBatch = batch;
 		this.renderView = viewport;
 
-		Beam.INSTANCE.v("Rendering using '%s' viewport", this.renderView.getClass()
-		                                                                .getName());
+		Beam.BEAM.v("Rendering using '%s' viewport", this.renderView.getClass()
+		                                                            .getName());
 
 		this.comparator = (entA, entB) -> {
 			TransformComponent transformA = transformMapper.get(entA);
@@ -88,7 +88,7 @@ public class RenderingSystem extends IteratingSystem {
 			TextureComponent curTex = texMapper.get(current);
 
 			if (curTex.texture == null) {
-				Beam.INSTANCE.v("Rendering Entity: Attempt to render entity with no "
+				Beam.BEAM.v("Rendering Entity: Attempt to render entity with no "
 					+ "texture in texture component!");
 				continue;
 			}
@@ -104,10 +104,10 @@ public class RenderingSystem extends IteratingSystem {
 			float originX = 0;
 			float originY = 0;
 
-			Beam.INSTANCE.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH["
+			Beam.BEAM.v("Rendering Entity: Pos[(%.3f, %.3f)] Orig[(%.3f, %.3f)] WxH["
 				+ "(%.3f, %.3f)] Scl[(%.3f, %.3f)] Rot[%.3f]", pos.x, pos.y, originX,
 				originY, width, height, scaling.x, scaling.y, curTransform.rotation);
-			Beam.INSTANCE.v("Rendering Entity: Using Meters Per Pixel value of %f",
+			Beam.BEAM.v("Rendering Entity: Using Meters Per Pixel value of %f",
 				Graphics.METERS_PER_PIXEL);
 			spriteBatch.draw(tex, pos.x - originX, pos.y - originY, originX, originY,
 				width, height, scaling.x * Graphics.METERS_PER_PIXEL, scaling.y *

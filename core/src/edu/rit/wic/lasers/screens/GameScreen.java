@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		this.gameInstance.notif.special(Notifier.Duration.NORMAL, "Woah! This works!");
+		this.gameInstance.notif.special(Notifier.DurationHint.NORMAL, "Woah! This works!");
 	}
 
 	@Override

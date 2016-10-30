@@ -23,7 +23,7 @@ import edu.rit.wic.lasers.screens.SplashScreen;
 public class LaserTagGame extends Game {
 
 	/** Logging uility */
-	public final Beam logger = Beam.INSTANCE;
+	public final Beam logger = Beam.BEAM;
 	public final Notifier notif;
 
 	private SpriteBatch batch;

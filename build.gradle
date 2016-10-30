@@ -42,6 +42,9 @@ allprojects {
         guavaVersion = '19.0'
         loggerVersion = '1.15'
         tastyToastVersion = '0.1.0'
+        gdxLmlVersion = '1.8'
+        gdxLmlVisVersion = gdxLmlVersion
+        gdxWebsocketsVersion = gdxLmlVersion
 
         sparkVersion = '2.5'
         lombokVersion = '1.16.10'
@@ -124,6 +127,12 @@ project(":core") {
         compile "com.google.guava:guava:$guavaVersion"
         compile "net.sourceforge" +
                 ".streamsupport:streamsupport:$streamSupportVersion"
+        compile "com.github.czyzby:gdx-lml:$gdxLmlVersion.$gdxVersion"
+        compile "com.github.czyzby:gdx-lml-vis:$gdxLmlVisVersion.$gdxVersion"
+        compile "com.github.czyzby:gdx-websocket:$gdxWebsocketsVersion" +
+                ".$gdxVersion"
+        compile "com.github.czyzby:gdx-websocket-common:$gdxWebsocketsVersion" +
+                ".$gdxVersion"
 
         // Already imported with kiwi
         //compile "com.github.czyzby:gdx-lml:1.7.1.9.3"

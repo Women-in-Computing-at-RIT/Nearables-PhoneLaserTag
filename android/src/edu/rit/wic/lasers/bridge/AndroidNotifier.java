@@ -15,6 +15,7 @@ import edu.rit.wic.lasers.logging.Beam;
  */
 public class AndroidNotifier extends AbstractNotifier {
 
+	private static final Beam logger = Beam.BEAM;
 	private final AndroidApplication notifierContext;
 
 	public AndroidNotifier(AndroidApplication ctxt) {
@@ -22,20 +23,23 @@ public class AndroidNotifier extends AbstractNotifier {
 	}
 
 	@Override
-	public void msg(final Duration duration, final Type type, final String message,
+	public void msg(final DurationHint duration, final NotifType type, final String message,
 	                final Object... args) {
 
-		int len = translateDuration(duration);
-		int realType = translateType(type);
-
+		Context ctxt = this.notifierContext;
 		String msg = String.format(message, args);
-
-		this.notifierContext.runOnUiThread(() -> TastyToast.makeText(this
-			.notifierContext, msg, len, realType));
+		this.notifierContext.runOnUiThread(
+			() -> TastyToast.makeText(
+				ctxt,
+				msg,
+				translateDuration(duration),
+				translateType(type)
+			)
+		);
 
 	}
 
-	private static int translateType(Type type) {
+	private static int translateType(NotifType type) {
 		switch(type) {
 			case SUCCESS:
 				return TastyToast.SUCCESS;
@@ -48,17 +52,19 @@ public class AndroidNotifier extends AbstractNotifier {
 			case SPECIAL:
 				return TastyToast.CONFUSING;
 			default:
-				Beam.INSTANCE.w("Unknown " + Type.class.getName() + " instance: " + type);
+				logger.w("Unknown " + NotifType.class.getName() + " instance: " + type);
 				return TastyToast.DEFAULT;
 		}
 	}
 
-	private static int translateDuration(Duration duration) {
+	private static int translateDuration(DurationHint duration) {
 		switch(duration) {
-			case QUICK:
+			case SHORT:
 				return TastyToast.LENGTH_SHORT;
+			case LONG:
+				return TastyToast.LENGTH_LONG;
 			default:
-				Beam.INSTANCE.w("Unknown " + Duration.class.getName() + " instance: " +
+				logger.w("Unknown " + DurationHint.class.getName() + " instance: " +
 					duration);
 			case NORMAL:
 				return TastyToast.LENGTH_LONG;
